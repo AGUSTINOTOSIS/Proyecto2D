@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhvdrxog34jso"]
+
+[ext_resource type="Script" path="res://scrips/ui.gd" id="1_eoux4"]
+[ext_resource type="AudioStream" uid="uid://bv70022dhgl24" path="res://musica/READY OR NOT.mp3" id="2_kcvqd"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_eoux4")
+
+[node name="damageOverlay" type="ColorRect" parent="."]
+offset_right = 1158.0
+offset_bottom = 656.0
+color = Color(0.552941, 0, 0.152941, 0)
+
+[node name="health_ProgressBar" type="ProgressBar" parent="."]
+offset_left = 57.0
+offset_top = 9.0
+offset_right = 219.0
+offset_bottom = 36.0
+step = 1.0
+
+[node name="Label" type="Label" parent="health_ProgressBar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -49.0
+offset_top = -2.0
+offset_right = -9.0
+offset_bottom = 21.0
+text = "vida:"
+
+[node name="FuitpointsLabel" type="Label" parent="."]
+offset_left = 247.0
+offset_top = 11.0
+offset_right = 287.0
+offset_bottom = 34.0
+text = "Frutas:"
+
+[node name="tiempo_label" type="Label" parent="."]
+offset_left = 981.0
+offset_top = 3.0
+offset_right = 1056.0
+offset_bottom = 32.0
+
+[node name="countdown" type="Timer" parent="."]
+
+[node name="emergencia" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_kcvqd")
+
+[connection signal="timeout" from="countdown" to="." method="_on_countdown_timeout"]

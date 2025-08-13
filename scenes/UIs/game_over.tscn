@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://nu3nrufcbhs"]
+
+[ext_resource type="Script" path="res://scrips/game_over.gd" id="1_sogb3"]
+
+[node name="game_over" type="CanvasLayer"]
+script = ExtResource("1_sogb3")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1157.0
+offset_bottom = 650.0
+
+[node name="restart" type="Button" parent="."]
+texture_filter = 1
+offset_left = 136.0
+offset_top = 348.0
+offset_right = 308.0
+offset_bottom = 387.0
+scale = Vector2(2, 2)
+theme_override_colors/font_disabled_color = Color(0.74361, 0.128159, 0.552825, 1)
+theme_override_colors/icon_disabled_color = Color(0.192157, 0.752941, 0.286275, 1)
+text = "REINICIAR"
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 714.0
+offset_top = 354.0
+offset_right = 886.0
+offset_bottom = 393.0
+scale = Vector2(2, 2)
+theme_override_colors/icon_disabled_color = Color(0.835718, 1.73271e-06, 4.81307e-07, 1)
+text = "VOLVER AL MENU"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color(1, 0, 0.117647, 1)
+offset_left = 409.0
+offset_top = 97.0
+offset_right = 505.0
+offset_bottom = 122.0
+scale = Vector2(4, 4)
+text = "GAME OVER"
+
+[connection signal="pressed" from="restart" to="." method="_on_restart_pressed"]

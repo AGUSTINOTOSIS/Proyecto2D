@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpuslonkvjey7"]
+
+[ext_resource type="Script" path="res://scrips/portal.gd" id="1_dopke"]
+[ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="2_nnv7r"]
+[ext_resource type="AudioStream" uid="uid://dpppmixeh64v5" path="res://sonidos/sonido_portal.mp3" id="3_63wbt"]
+[ext_resource type="AudioStream" uid="uid://dfu235yi4ajvj" path="res://sonidos/fuiste.wav" id="4_5tkcv"]
+[ext_resource type="AudioStream" uid="uid://cya54jrm53ffe" path="res://sonidos/te_fuiste.wav" id="5_7f2ir"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rno8f"]
+size = Vector2(47.5, 60)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mbug5"]
+radius = 181.734
+
+[node name="portal" type="Node2D" groups=["portal"]]
+scale = Vector2(2, 2)
+script = ExtResource("1_dopke")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -11.0
+offset_top = -18.0
+offset_right = 15.0
+offset_bottom = 34.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.486275, 1, 1, 0.556863)
+
+[node name="teletransport" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 16
+
+[node name="collision_portal" type="CollisionShape2D" parent="teletransport"]
+position = Vector2(1.25, 4)
+shape = SubResource("RectangleShape2D_rno8f")
+
+[node name="ELight" type="Sprite2D" parent="."]
+z_index = 2
+texture_filter = 1
+position = Vector2(-27, -28.5)
+texture = ExtResource("2_nnv7r")
+
+[node name="TeleportSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_63wbt")
+volume_db = -20.0
+parameters/looping = true
+
+[node name="sound_area" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sound_area"]
+shape = SubResource("CircleShape2D_mbug5")
+debug_color = Color(0.157455, 0.631208, 0.383956, 0.42)
+
+[node name="FuisteSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5tkcv")
+pitch_scale = 1.2
+
+[node name="TeFuisteSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7f2ir")
+
+[connection signal="area_entered" from="teletransport" to="." method="_on_teletransport_area_entered"]
+[connection signal="area_exited" from="teletransport" to="." method="_on_teletransport_area_exited"]
+[connection signal="body_entered" from="sound_area" to="." method="_on_sound_area_body_entered"]
+[connection signal="body_exited" from="sound_area" to="." method="_on_sound_area_body_exited"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bo0c1p5bbex05"
+path="res://.godot/imported/full rat dance green screen - Le bazars de Nono3.mp3-bf4c177376b2c2895c32e3c5a1344606.mp3str"
+
+[deps]
+
+source_file="res://musica/radio/full rat dance green screen - Le bazars de Nono3.mp3"
+dest_files=["res://.godot/imported/full rat dance green screen - Le bazars de Nono3.mp3-bf4c177376b2c2895c32e3c5a1344606.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

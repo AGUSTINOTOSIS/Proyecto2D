@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bgqt4idqqasls"
+path="res://.godot/imported/Sonic CD Remastered - Metallic Madness Past - Church of Kondo.mp3-402280a1896ff5c34e2980f383e528c3.mp3str"
+
+[deps]
+
+source_file="res://musica/radio/Sonic CD Remastered - Metallic Madness Past - Church of Kondo.mp3"
+dest_files=["res://.godot/imported/Sonic CD Remastered - Metallic Madness Past - Church of Kondo.mp3-402280a1896ff5c34e2980f383e528c3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

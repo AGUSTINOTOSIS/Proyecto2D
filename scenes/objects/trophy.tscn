@@ -1,0 +1,94 @@
+[gd_scene load_steps=15 format=3 uid="uid://k5trxgvdpl2u"]
+
+[ext_resource type="Script" path="res://scrips/trophy.gd" id="1_hbqgl"]
+[ext_resource type="PackedScene" uid="uid://7l65oknrit4l" path="res://scenes/UIs/victory_screen.tscn" id="2_lar75"]
+[ext_resource type="Texture2D" uid="uid://bw1ere5nqkj4e" path="res://Free/Items/Checkpoints/End/End (Pressed) (64x64).png" id="2_tegkc"]
+[ext_resource type="AudioStream" uid="uid://cvy45ivhffhc4" path="res://musica/win.mp3" id="3_bjekc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enhf0"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ng50o"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3s7k"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysbh1"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r7v2"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bexcx"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cjw8"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig7jg"]
+atlas = ExtResource("2_tegkc")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tqxan"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enhf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ng50o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3s7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysbh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r7v2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bexcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cjw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig7jg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a06bq"]
+radius = 41.3038
+
+[node name="trophy" type="Area2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_hbqgl")
+victory_screen = ExtResource("2_lar75")
+victory_sound = ExtResource("3_bjekc")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_tqxan")
+autoplay = "default"
+frame = 3
+frame_progress = 0.199686
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a06bq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bjekc")
+volume_db = -8.0

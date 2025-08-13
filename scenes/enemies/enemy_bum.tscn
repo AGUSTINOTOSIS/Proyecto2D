@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjhmk4v8dsa7i"]
+
+[ext_resource type="Script" path="res://enemy_bum.gd" id="1_dlv2k"]
+[ext_resource type="Texture2D" uid="uid://cqu0wccmk5jpd" path="res://Free/Traps/Rock Head/Idle.png" id="2_6s007"]
+[ext_resource type="PackedScene" uid="uid://dotip7yl7xlj0" path="res://scenes/enemies/bullet.tscn" id="2_fhc4v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xiocx"]
+radius = 396.032
+
+[node name="enemy_bum" type="Area2D"]
+collision_layer = 17
+collision_mask = 17
+script = ExtResource("1_dlv2k")
+bullet_scene = ExtResource("2_fhc4v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_6s007")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xiocx")
+debug_color = Color(0.356905, 0.498192, 0.952455, 0.42)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(400, 0)
+collision_mask = 17
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

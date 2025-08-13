@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cdc2suv2vfbrj"
+path="res://.godot/imported/Clint Eastwood [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe - 8 Bit Universe.mp3-1ed22ded2e4c22a8d813e22bd48b1122.mp3str"
+
+[deps]
+
+source_file="res://musica/radio/Clint Eastwood [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe - 8 Bit Universe.mp3"
+dest_files=["res://.godot/imported/Clint Eastwood [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe - 8 Bit Universe.mp3-1ed22ded2e4c22a8d813e22bd48b1122.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

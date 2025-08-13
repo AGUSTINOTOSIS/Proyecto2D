@@ -1,0 +1,13 @@
+Movement Keys: W, S, A, D
+
+Skill Tacla: Q
+
+Interaction key (speaking, taking, touching, opening.etc): e
+
+Selection and targeted click: left click
+
+Inventory key: 1,2,3
+
+Light key: F
+
+Menu or backwalk key: Esc

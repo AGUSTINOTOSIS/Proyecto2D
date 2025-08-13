@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://drf84eyvypsn8"]
+
+[ext_resource type="Script" path="res://scrips/deathzone.gd" id="1_n85m7"]
+[ext_resource type="AudioStream" uid="uid://bm6anmifdeay1" path="res://sonidos/te_caiste.wav" id="2_qerk8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lw11n"]
+size = Vector2(11294, 20)
+
+[node name="deathzone" type="Area2D"]
+collision_layer = 4
+collision_mask = 16
+script = ExtResource("1_n85m7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5647, 10)
+shape = SubResource("RectangleShape2D_lw11n")
+
+[node name="drop_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_qerk8")
+volume_db = -10.0
+pitch_scale = 0.9

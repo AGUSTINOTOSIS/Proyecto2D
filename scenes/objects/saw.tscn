@@ -1,0 +1,109 @@
+[gd_scene load_steps=14 format=3 uid="uid://ccntm2ibkn2jv"]
+
+[ext_resource type="Texture2D" uid="uid://btdhalju781qb" path="res://Free/Traps/Saw/On (38x38).png" id="1_2w5r1"]
+[ext_resource type="Script" path="res://scrips/saw.gd" id="1_jpdiu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kl4j"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(0, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hypa5"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(38, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b48kc"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(76, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2aywo"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(114, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjltd"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(152, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ststq"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(190, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0d5y"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(228, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdpyw"]
+atlas = ExtResource("1_2w5r1")
+region = Rect2(266, 0, 38, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kosqf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kl4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hypa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b48kc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2aywo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjltd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ststq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0d5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdpyw")
+}],
+"loop": true,
+"name": &"on",
+"speed": 18.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eeqbf"]
+size = Vector2(8, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jh5rw"]
+radius = 11.5109
+
+[node name="saw" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 2
+script = ExtResource("1_jpdiu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_kosqf")
+animation = &"on"
+autoplay = "on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_eeqbf")
+
+[node name="raycast_floor_detection" type="RayCast2D" parent="."]
+position = Vector2(20, -7)
+rotation = -0.00370631
+target_position = Vector2(-0.0407696, 10.9999)
+
+[node name="raycast_wall_detection" type="RayCast2D" parent="."]
+target_position = Vector2(20, 0)
+
+[node name="damage_zone" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_zone"]
+shape = SubResource("CircleShape2D_jh5rw")
+
+[node name="cooldown_timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="damage_zone" to="." method="_on_damage_zone_body_entered"]
+[connection signal="timeout" from="cooldown_timer" to="." method="_on_cooldown_timer_timeout"]

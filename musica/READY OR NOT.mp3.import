@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bv70022dhgl24"
+path="res://.godot/imported/READY OR NOT.mp3-96cad1b1a5c918af0a8b6b399134669f.mp3str"
+
+[deps]
+
+source_file="res://musica/READY OR NOT.mp3"
+dest_files=["res://.godot/imported/READY OR NOT.mp3-96cad1b1a5c918af0a8b6b399134669f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

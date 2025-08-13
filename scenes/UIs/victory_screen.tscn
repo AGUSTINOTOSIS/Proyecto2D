@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://7l65oknrit4l"]
+
+[ext_resource type="Script" path="res://scrips/victory_screen.gd" id="1_vhmlv"]
+[ext_resource type="AudioStream" uid="uid://516wiacna8gd" path="res://sonidos/tocar_boton.mp3" id="2_7u867"]
+
+[node name="victory_screen" type="CanvasLayer"]
+script = ExtResource("1_vhmlv")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 384.0
+offset_top = 70.0
+offset_right = -422.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 346.0
+offset_bottom = 92.0
+text = "¡Nivel Completado!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="next" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 114.0
+offset_right = 271.0
+offset_bottom = 181.0
+text = "Siguiente Nivel"
+
+[node name="try_again" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 221.0
+offset_right = 274.0
+offset_bottom = 288.0
+text = "Repetir nivel"
+
+[node name="menu" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 329.0
+offset_right = 276.0
+offset_bottom = 396.0
+text = "Menú Principal"
+
+[node name="clickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_7u867")
+
+[connection signal="pressed" from="Panel/next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="Panel/try_again" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="Panel/menu" to="." method="_on_menu_pressed"]
