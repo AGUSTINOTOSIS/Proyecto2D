@@ -14,7 +14,6 @@ var original_volume: float = 0.0
 var damage_color = Color("#8d0027")
 var max_alpha = 0.4
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	damage_overlay.color = damage_color
@@ -77,7 +76,7 @@ func start_camera_shake():
 	camera_shake_playing = true
 	var player = get_parent().get_node("player")
 	if player and player.has_node("Camera2D"):
-		player.get_node("Camera2D").shake_screen(20.0, 0.0, true)
+		player.get_node("Camera2D").shake_screen(1.0, 0.0, true) #20.0
 		
 func stop_camera_shake():
 	camera_shake_playing = false
@@ -89,17 +88,23 @@ func start_special_effects():
 	special_music_playing = true
 	audio_stream_player.play()
 	
+	Radio.emergency_music = true
 	var bg_music = get_node("../audio_fondo")
 	if bg_music:
 		var tween = create_tween()
 		tween.tween_property(bg_music, "volume_db", -80.0, 5.0)
 		
 	# Silenciar música de radio si está sonando
-	var radios = get_tree().get_nodes_in_group("radio")
-	for radio in radios:
-		if radio.audio_player.playing:
-			var tween_radio = create_tween()
-			tween_radio.tween_property(radio.audio_player, "volume_db", -20.0, 3.0)
+	
+	#FIVERR: may want to tweak the values a bit, here, depending on what SOUNDS better.
+	var tween_radio = create_tween()
+	tween_radio.tween_property(Radio, "MAX_VOLUME", -20.0, 3.0)
+	tween_radio.tween_property(Radio, "BG_MUSIC_REDUCTION", -20.0, 3.0)
+	#var radios = get_tree().get_nodes_in_group("radio")
+	#for radio in radios:
+		#if radio.audio_player.playing:
+			#tween_radio.tween_property(radio.audio_player, "volume_db", -20.0, 3.0)
+			
 		
 func end_game():
 	var player = get_parent().get_node("player")

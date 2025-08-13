@@ -1,12 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://dudx3kktdn3q8"]
+[gd_scene load_steps=10 format=3 uid="uid://dudx3kktdn3q8"]
 
 [ext_resource type="Script" path="res://scrips/radio.gd" id="1_weyko"]
 [ext_resource type="Texture2D" uid="uid://b5fttjjcscf2d" path="res://Free/New Piskel clone clone.png" id="2_kxbai"]
 [ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="3_fwvcy"]
+[ext_resource type="AudioStream" uid="uid://cdc2suv2vfbrj" path="res://musica/radio/Clint Eastwood [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe - 8 Bit Universe.mp3" id="3_nawkv"]
 [ext_resource type="AudioStream" uid="uid://bo0c1p5bbex05" path="res://musica/radio/full rat dance green screen - Le bazars de Nono3.mp3" id="4_phj7f"]
+[ext_resource type="AudioStream" uid="uid://bgqt4idqqasls" path="res://musica/radio/Sonic CD Remastered - Metallic Madness Past - Church of Kondo.mp3" id="5_7gom8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ao4tt"]
 size = Vector2(28, 18.5)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_heodd"]
+streams_count = 3
+stream_0/stream = ExtResource("3_nawkv")
+stream_1/stream = ExtResource("4_phj7f")
+stream_2/stream = ExtResource("5_7gom8")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bcoj"]
 radius = 267.007
@@ -27,7 +35,7 @@ scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_ao4tt")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_phj7f")
+stream = SubResource("AudioStreamRandomizer_heodd")
 
 [node name="promptSprite" type="Sprite2D" parent="."]
 z_index = 2

@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://lpl4x6vqmnmq"]
+[gd_scene load_steps=28 format=3 uid="uid://lpl4x6vqmnmq"]
 
 [ext_resource type="PackedScene" uid="uid://u0upvys07pra" path="res://scenes/maps/map_1.tscn" id="1_t6r6j"]
 [ext_resource type="PackedScene" uid="uid://bhvdrxog34jso" path="res://scenes/UIs/ui.tscn" id="1_torf5"]
 [ext_resource type="PackedScene" uid="uid://4dax11kb47qx" path="res://characters/player.tscn" id="2_j23mh"]
 [ext_resource type="PackedScene" uid="uid://bh6kq7weerqia" path="res://scenes/fondos/fondo_1.tscn" id="3_boyby"]
+[ext_resource type="PackedScene" uid="uid://bjhmk4v8dsa7i" path="res://scenes/enemies/enemy_bum.tscn" id="4_24l7q"]
 [ext_resource type="PackedScene" uid="uid://o662hmv02y5e" path="res://scenes/objects/plataformoved.tscn" id="4_sumyw"]
 [ext_resource type="PackedScene" uid="uid://ccntm2ibkn2jv" path="res://scenes/objects/saw.tscn" id="5_s7rco"]
 [ext_resource type="PackedScene" uid="uid://gd470h1fw37l" path="res://scenes/objects/trampoline.tscn" id="6_3undh"]
@@ -249,6 +250,10 @@ position = Vector2(4449, 69)
 
 [node name="radio" parent="." instance=ExtResource("17_btlpp")]
 position = Vector2(-15, 529)
+
+[node name="enemy_bum" parent="." instance=ExtResource("4_24l7q")]
+position = Vector2(2504, 336)
+scale = Vector2(1.4, 1.4)
 
 [connection signal="body_entered" from="init_cutscene_1" to="init_cutscene_1" method="_on_body_entered"]
 [connection signal="animation_finished" from="init_cutscene_1/AnimationPlayer" to="init_cutscene_1" method="_on_animation_player_animation_finished"]

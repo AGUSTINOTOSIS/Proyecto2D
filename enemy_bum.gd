@@ -17,6 +17,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if player:
+		# sees player
 		update_aim()
 		try_shoot()
 		
@@ -27,13 +28,17 @@ func update_aim():
 	
 func try_shoot():
 	if player and $RayCast2D.is_colliding():
-		var collider = $RayCast2D.get_collider()
-		if collider == player and $Timer.is_stopped():
+		#FIVERR: Issue was here. collider returned area2D, named "damage_detection
+		#(which told me it WASN'T grabbing the player, but instead their Area2d.
+		#doing collider.getParent fixes this, as the area is a CHILD of the player
+		var collider = $RayCast2D.get_collider().get_parent()
+		if collider == player and $Timer.is_stopped(): 
 			shoot()
 			$Timer.start()
 		
 		
 func shoot():
+	print("I am Shooting!")
 	if bullet_scene and player and has_node("Marker2D"):
 		var bullet = bullet_scene.instantiate()
 		get_parent().add_child(bullet)
