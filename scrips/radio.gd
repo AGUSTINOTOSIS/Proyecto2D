@@ -6,7 +6,7 @@ static var MAX_VOLUME := -1.0  # Volumen máximo de la radio #FIVERR: was "const
 const MIN_VOLUME := -80.0  # Volumen mínimo (silenciado)
 static var BG_MUSIC_REDUCTION := -40 #-20.0 #FIVERR: was "constant", not "static var"
 const SOUND_RADIUS := 300.0  # radio del area de sonido en píxeles
-const MUSIC_FOLDER := "musica/radio"
+static var emergency_music:= false
 
 
 @onready var audio_player = $AudioStreamPlayer
@@ -17,12 +17,12 @@ const MUSIC_FOLDER := "musica/radio"
 #var MAX_VOLUME := -1.0
 var player_in_range := false
 var radio_is_on := false
+var toggle_cooldown := false
 var player_in_sound_area := false
 var original_radio_volume = 0.0  # se uarda el volumen original aquí
 var player_ref: Node2D = null
 var bg_music_tween: Tween
 var target_volume_percent: float = 0 #FIVERR: To help with making the music properly fade in & out
-static var emergency_music:= false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,13 +35,14 @@ func _ready() -> void:
 		sound_shape.shape.radius = SOUND_RADIUS
 	
 func _process(_delta: float) -> void:
-	if player_in_range and Input.is_action_just_pressed("interact_radio"):
+	if player_in_range and Input.is_action_just_pressed("interact_radio") and not toggle_cooldown:
 		toggle_radio()
 		
 	if audio_player.playing and player_ref:
 		update_radio_volume()
 		
 func toggle_radio():
+	toggle_cooldown = true
 	if radio_is_on:
 		stop_radio()
 	else:
@@ -75,7 +76,7 @@ func update_radio_volume():
 	#It basically gets the distance between two values, and the last value tells it 
 	#the percent needed to do (-80 + (distance*percent)).
 	#the percent value should be between 0 and 1 (use floats)
-	print(linear_to_db(distance_percent))
+	#print(linear_to_db(distance_percent))
 	var target_volume = lerpf(-80, MAX_VOLUME+linear_to_db(distance_percent), target_volume_percent)
 	
 	audio_player.volume_db = target_volume
@@ -93,9 +94,16 @@ func update_radio_volume():
 	#tween.tween_property(audio_player, "volume_db", target_volume, FADE_DURATION)
 
 func _fade_sound(turning_up: bool):
+	#toggle_cooldown = true
 	var tween = create_tween()
 	#tween.tween_property(audio_player, "volume_db", target_volume, FADE_DURATION)
 	tween.tween_property(self, "target_volume_percent", 1 if turning_up else 0, FADE_DURATION)
+	tween.finished.connect(allow_toggle) 
+	#FIVERR: when the Tween finishes, it calls the allow_toggle function.
+	#It sets the toggle_cooldown to false, allowing the player to toggle the radio again
+	
+func allow_toggle():
+	toggle_cooldown = false;
 		
 func _adjust_background_music(target_volume: float):
 	#FIVERR: Change what "bg music" is targeted, when the emergency music is playing
