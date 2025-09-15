@@ -38,3 +38,9 @@ func _process(delta: float) -> void:
 			current_shake_duration -= delta
 		else:
 			stop_shake()
+			
+func reduce_shake_intensity(amount: float):
+	shake_power = max(0.0, shake_power - amount)
+	current_shake_duration = max(0.0, current_shake_duration - amount * 10)
+	if shake_power <= 1.0:
+		stop_shake()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://4dax11kb47qx"]
+[gd_scene load_steps=75 format=3 uid="uid://4dax11kb47qx"]
 
 [ext_resource type="Script" path="res://scrips/player.gd" id="1_duo87"]
 [ext_resource type="Texture2D" uid="uid://iusinvun8o5h" path="res://Free/Main Characters/Appearing (96x96).png" id="2_cgnke"]
@@ -470,9 +470,6 @@ height = 26.0
 radius = 9.28571
 height = 27.1429
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkae2"]
-size = Vector2(0.714287, 6.42857)
-
 [node name="player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(1.4, 1.4)
 collision_layer = 16
@@ -513,13 +510,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damage_detection"]
 position = Vector2(0, 2.85714)
 shape = SubResource("CapsuleShape2D_ct3b5")
-
-[node name="area_for_portal" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="area_for_portal"]
-position = Vector2(0.714285, 12.8571)
-shape = SubResource("RectangleShape2D_vkae2")
-debug_color = Color(0.847059, 0.243137, 0.709804, 0.419608)
 
 [node name="damage" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_1nx2j")

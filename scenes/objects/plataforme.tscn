@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqnjvfesjt7ns"]
+
+[ext_resource type="Script" path="res://scrips/plataformoved.gd" id="1_e1oc1"]
+[ext_resource type="Texture2D" uid="uid://x1mefeunwrx6" path="res://Free/Terrain/Terrain (16x16).png" id="2_q8t3i"]
+
+[sub_resource type="Curve2D" id="Curve2D_fhn7p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 97, 0, 0, 0, 0, 0, 223, 0)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfhot"]
+size = Vector2(46, 4)
+
+[sub_resource type="Animation" id="Animation_r5md8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mpivu"]
+resource_name = "regular_move"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.4, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hero0"]
+_data = {
+"RESET": SubResource("Animation_r5md8"),
+"regular_move": SubResource("Animation_mpivu")
+}
+
+[node name="plataforme" type="Node2D"]
+scale = Vector2(2, 2)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_fhn7p")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="Path2D/PathFollow2D"]
+script = ExtResource("1_e1oc1")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/AnimatableBody2D"]
+texture_filter = 1
+texture = ExtResource("2_q8t3i")
+region_enabled = true
+region_rect = Rect2(272.187, 15.9616, 47.4687, 5.03102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/AnimatableBody2D"]
+shape = SubResource("RectangleShape2D_lfhot")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path2D/PathFollow2D"]
+libraries = {
+"": SubResource("AnimationLibrary_hero0")
+}
+autoplay = "regular_move"

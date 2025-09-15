@@ -1,0 +1,131 @@
+[gd_scene load_steps=17 format=3 uid="uid://c5uinn8wbew52"]
+
+[ext_resource type="Script" path="res://scrips/wooden_plank.gd" id="1_1ps1g"]
+[ext_resource type="Texture2D" uid="uid://x1mefeunwrx6" path="res://Free/Terrain/Terrain (16x16).png" id="2_ri6cu"]
+[ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="3_4kfvy"]
+[ext_resource type="Texture2D" uid="uid://b1nkovaibdws5" path="res://Free/loading/07.png" id="4_xi7y5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbhkb"]
+size = Vector2(78.5, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_81eav"]
+size = Vector2(78.5, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tuod"]
+size = Vector2(75, 25.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awh8e"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ti5o"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep88x"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6546j"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d54hf"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m11yd"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdgvk"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwoqd"]
+atlas = ExtResource("4_xi7y5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4of7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awh8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ti5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep88x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6546j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d54hf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m11yd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdgvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwoqd")
+}],
+"loop": false,
+"name": &"progress",
+"speed": 0.0
+}]
+
+[node name="wooden_plank" type="StaticBody2D" groups=["wooden_planks"]]
+scale = Vector2(2, 2)
+script = ExtResource("1_1ps1g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(15.25, 0)
+scale = Vector2(1.64894, 1)
+texture = ExtResource("2_ri6cu")
+region_enabled = true
+region_rect = Rect2(0, 64.0949, 47.8578, 8.87595)
+
+[node name="TopCollision" type="CollisionShape2D" parent="."]
+position = Vector2(15.25, -3)
+shape = SubResource("RectangleShape2D_xbhkb")
+
+[node name="BottomArea" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomArea"]
+position = Vector2(15.25, 3)
+shape = SubResource("RectangleShape2D_81eav")
+debug_color = Color(0.729693, 0.342825, 0.826898, 0.42)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(15.5, 0.25)
+shape = SubResource("RectangleShape2D_0tuod")
+
+[node name="EPrompt" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-16.5, -23)
+scale = Vector2(0.486842, 0.47561)
+texture = ExtResource("3_4kfvy")
+
+[node name="ProgressSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-16, -22.5)
+sprite_frames = SubResource("SpriteFrames_4of7s")
+animation = &"progress"
+
+[node name="ConstructionTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="body_entered" from="BottomArea" to="." method="_on_bottom_area_body_entered"]
+[connection signal="body_exited" from="BottomArea" to="." method="_on_bottom_area_body_exited"]
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
+[connection signal="timeout" from="ConstructionTimer" to="." method="_on_construction_timer_timeout"]

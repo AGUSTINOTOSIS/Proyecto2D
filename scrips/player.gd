@@ -5,8 +5,9 @@ var shake_duration: float = 0.0
 var shake_remaining: float = 0.0
 
 
-const SPEED : float = 300.0
+var SPEED : float = 300.0
 const JUMP_VELOCITY : float = -400.0
+
 var health : int = 100
 var fruitCount : int = 0
 var allow_animation : bool = false
@@ -20,14 +21,29 @@ var direction
 var stuck_on_wall : bool = false
 var block_player : bool = false
 var block_movement := false
+
+var is_frozen: bool = false
+var freeze_timer: float = 0.0
+var original_speed: float = SPEED
+var freeze_speed: float = SPEED * 0.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	$raycast_walljump.target_position.x = raycast_dimension
 	$animaciones.play("appearing")
+	
+	modulate = Color(1, 1, 1, 1)
 
 func _physics_process(delta):
+	if is_frozen:
+		freeze_timer -= delta
+		if freeze_timer <= 0:
+			is_frozen = false
+			SPEED = original_speed
+			var ui = get_node("../UI")
+			if ui and ui.has_method("hide_freeze_effect"):
+				ui.hide_freeze_effect()
 	if shake_remaining != 0:
 		if shake_duration > 0:
 			shake_remaining = max(0, shake_remaining - delta)
@@ -58,6 +74,7 @@ func _physics_process(delta):
 			leave_floor = true
 		velocity.y += gravity * delta
 
+
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and right_to_jump():
 		if count_jump == 1:
@@ -87,7 +104,6 @@ func _physics_process(delta):
 			stuck_on_wall = false
 	else:
 		stuck_on_wall = false
-			
 	move_and_slide()
 	decide_animation()
 	
@@ -191,3 +207,23 @@ func start_shake(intensity: float = 1.0, duration: float = -1.0):
 func stop_shake():
 	shake_remaining = 0
 	$Camera2D.offset = Vector2.ZERO
+	
+func apply_freeze(duration: float):
+	if not is_frozen:
+		is_frozen = true
+		freeze_timer = duration
+		SPEED = freeze_speed
+	else:
+		freeze_timer = max(freeze_timer, duration)
+	var ui = get_node("../UI")
+	if ui and ui.has_method("show_freeze_effect"):
+		ui.show_freeze_effect(freeze_timer)
+		
+func apply_fade_effect(target_alpha: float, duration: float = 3.0):
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", target_alpha, duration)
+
+func reset_appearance():
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 1.0)
+	

@@ -21,7 +21,10 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and body.has_method("take_damage"):
 		body.take_damage(damage)
+		await play_impact_sound()
 		queue_free() # Destruir el proyectil al impactar
+	elif body is TileMapLayer:
+		queue_free()
 
 func _on_timer_timeout() -> void:
 	queue_free() # Destruir el proyectil si no golpea nada
@@ -29,3 +32,13 @@ func _on_timer_timeout() -> void:
 func initialize(dir: Vector2) -> void:
 	direction = dir.normalized()
 	rotation = direction.angle()
+
+func _on_area_entered(area: Area2D) -> void:
+	# para otrso objhetos que tambien la bala pueda chocar
+	if area.is_in_group("destructible"):
+		queue_free()
+		
+func play_impact_sound():
+	if has_node("ImpactSound"):
+		$ImpactSound.play()
+		await $ImpactSound.finished

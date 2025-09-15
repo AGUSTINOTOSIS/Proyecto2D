@@ -1,13 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dotip7yl7xlj0"]
+[gd_scene load_steps=5 format=3 uid="uid://dotip7yl7xlj0"]
 
 [ext_resource type="Script" path="res://scrips/bullet.gd" id="1_q01fx"]
 [ext_resource type="Texture2D" uid="uid://dub3ifvc7x356" path="res://Free/Traps/Sand Mud Ice/Sand Particle.png" id="2_2jw1q"]
+[ext_resource type="AudioStream" uid="uid://chy41k4r0ci6" path="res://sonidos/brokenbullet.mp3" id="3_2ikbe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m0r0t"]
 radius = 4.0
 
 [node name="bullet" type="Area2D"]
-collision_mask = 16
+scale = Vector2(3, 3)
+collision_layer = 17
+collision_mask = 17
 script = ExtResource("1_q01fx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -19,5 +22,9 @@ shape = SubResource("CircleShape2D_m0r0t")
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="ImpactSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2ikbe")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
