@@ -1,259 +1,324 @@
-[gd_scene load_steps=28 format=3 uid="uid://lpl4x6vqmnmq"]
+[gd_scene load_steps=12 format=3 uid="uid://dn8ahuj5dde76"]
 
-[ext_resource type="PackedScene" uid="uid://u0upvys07pra" path="res://scenes/maps/map_1.tscn" id="1_t6r6j"]
+[ext_resource type="Script" path="res://scenes/words/scripts words/word_2.gd" id="1_rlq20"]
+[ext_resource type="PackedScene" uid="uid://kjnjslwqknqm" path="res://scenes/maps/map_1.tscn" id="1_t6r6j"]
 [ext_resource type="PackedScene" uid="uid://bhvdrxog34jso" path="res://scenes/UIs/ui.tscn" id="1_torf5"]
 [ext_resource type="PackedScene" uid="uid://4dax11kb47qx" path="res://characters/player.tscn" id="2_j23mh"]
 [ext_resource type="PackedScene" uid="uid://bh6kq7weerqia" path="res://scenes/fondos/fondo_1.tscn" id="3_boyby"]
-[ext_resource type="PackedScene" uid="uid://bjhmk4v8dsa7i" path="res://scenes/enemies/enemy_bum.tscn" id="4_24l7q"]
-[ext_resource type="PackedScene" uid="uid://o662hmv02y5e" path="res://scenes/objects/plataformoved.tscn" id="4_sumyw"]
-[ext_resource type="PackedScene" uid="uid://ccntm2ibkn2jv" path="res://scenes/objects/saw.tscn" id="5_s7rco"]
 [ext_resource type="PackedScene" uid="uid://gd470h1fw37l" path="res://scenes/objects/trampoline.tscn" id="6_3undh"]
-[ext_resource type="PackedScene" uid="uid://88xuhuxtajik" path="res://scenes/objects/spikeball.tscn" id="7_gddv0"]
 [ext_resource type="PackedScene" uid="uid://ddnkca5jfduuw" path="res://scenes/objects/fruit.tscn" id="8_o6vwa"]
 [ext_resource type="PackedScene" uid="uid://dpuslonkvjey7" path="res://scenes/objects/portal.tscn" id="10_xmlyr"]
-[ext_resource type="Script" path="res://scenes/words/init_cutscene_1.gd" id="11_c5eje"]
-[ext_resource type="AudioStream" uid="uid://f4yyc5vq3p73" path="res://musica/happy.mp3" id="12_xuuog"]
-[ext_resource type="Script" path="res://scenes/words/audio_fondo.gd" id="13_xu4oh"]
-[ext_resource type="PackedScene" uid="uid://drf84eyvypsn8" path="res://scenes/objects/deathzone.tscn" id="14_15gnw"]
 [ext_resource type="PackedScene" uid="uid://k5trxgvdpl2u" path="res://scenes/objects/trophy.tscn" id="15_201up"]
-[ext_resource type="PackedScene" uid="uid://de2lpwhc83hi6" path="res://scenes/objects/spikes.tscn" id="16_q25wc"]
-[ext_resource type="PackedScene" uid="uid://dudx3kktdn3q8" path="res://scenes/objects/radio.tscn" id="17_btlpp"]
-
-[sub_resource type="Curve2D" id="Curve2D_nyurp"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 575, 447, 0, 0, 0, 0, 960, 448)
-}
-point_count = 2
-
-[sub_resource type="Animation" id="Animation_r5md8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_mpivu"]
-resource_name = "regular_move"
-length = 5.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.4, 5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_hero0"]
-_data = {
-"RESET": SubResource("Animation_r5md8"),
-"regular_move": SubResource("Animation_mpivu")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_asv48"]
-size = Vector2(20, 336)
-
-[sub_resource type="Animation" id="Animation_cx4u2"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_j7c5t"]
-resource_name = "to_black"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ac23g"]
-resource_name = "to_transparent"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_utfa7"]
-_data = {
-"RESET": SubResource("Animation_cx4u2"),
-"to_black": SubResource("Animation_j7c5t"),
-"to_transparent": SubResource("Animation_ac23g")
-}
+[ext_resource type="PackedScene" uid="uid://db6pyiq44arhy" path="res://scenes/enemies/enemy_simple.tscn" id="19_ksevb"]
+[ext_resource type="PackedScene" uid="uid://dp2u3wqjflb1d" path="res://scenes/UIs/pause.tscn" id="20_a7gak"]
 
 [node name="word_1" type="Node2D"]
+script = ExtResource("1_rlq20")
 
 [node name="UI" parent="." instance=ExtResource("1_torf5")]
 
-[node name="map_1" parent="." instance=ExtResource("1_t6r6j")]
+[node name="pause" parent="." instance=ExtResource("20_a7gak")]
 
 [node name="player" parent="." instance=ExtResource("2_j23mh")]
-position = Vector2(341, 177)
+position = Vector2(109, 484)
 
 [node name="fondo_1" parent="." instance=ExtResource("3_boyby")]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="trampolines" type="Node" parent="."]
 
-[node name="Path2D" type="Path2D" parent="Node2D"]
-position = Vector2(-22, 0)
-scale = Vector2(1, 0.999756)
-curve = SubResource("Curve2D_nyurp")
+[node name="trampoline" parent="trampolines" instance=ExtResource("6_3undh")]
+position = Vector2(4217, 421)
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Node2D/Path2D"]
-position = Vector2(575, 447)
-rotation = 0.0025974
-loop = false
+[node name="trampoline2" parent="trampolines" instance=ExtResource("6_3undh")]
+position = Vector2(6805, 196)
 
-[node name="plataformoved" parent="Node2D/Path2D/PathFollow2D" instance=ExtResource("4_sumyw")]
-rotation = -0.0025974
-scale = Vector2(2, 2.00049)
+[node name="trampoline3" parent="trampolines" instance=ExtResource("6_3undh")]
+position = Vector2(7692, 196)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Path2D/PathFollow2D"]
-libraries = {
-"": SubResource("AnimationLibrary_hero0")
-}
-autoplay = "regular_move"
+[node name="trampoline4" parent="trampolines" instance=ExtResource("6_3undh")]
+position = Vector2(2955, 420)
 
-[node name="saw" parent="." instance=ExtResource("5_s7rco")]
-position = Vector2(602, 505)
+[node name="enemySimple" type="Node" parent="."]
 
-[node name="trampoline" parent="." instance=ExtResource("6_3undh")]
-position = Vector2(1395, 517)
+[node name="enemy_simple" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(955, 428)
 
-[node name="spikeball" parent="." instance=ExtResource("7_gddv0")]
-position = Vector2(1202, -24)
+[node name="enemy_simple2" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(1444, 523)
 
-[node name="fruit" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(851, 403)
-fruitType = "cherry"
+[node name="enemy_simple3" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(1629, 523)
 
-[node name="fruit2" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(1681, 560)
+[node name="enemy_simple4" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(3246, 162)
+
+[node name="enemy_simple5" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(3488, 59)
+
+[node name="enemy_simple6" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(3693, -12)
+
+[node name="enemy_simple7" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(4500, 419)
+
+[node name="enemy_simple8" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(5001, 416)
+
+[node name="enemy_simple9" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(5521, 413)
+
+[node name="enemy_simple10" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(6075, 416)
+
+[node name="enemy_simple11" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(9611, 37)
+
+[node name="enemy_simple12" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(8317, -5)
+
+[node name="enemy_simple13" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(6990, 185)
+
+[node name="enemy_simple14" parent="enemySimple" instance=ExtResource("19_ksevb")]
+position = Vector2(7420, 164)
+
+[node name="fruits" type="Node" parent="."]
+
+[node name="fruit" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(444, 462)
+
+[node name="fruit2" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(520, 460)
+
+[node name="fruit3" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(609, 461)
+
+[node name="fruit4" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(1411, 444)
+
+[node name="fruit5" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(1475, 404)
+
+[node name="fruit6" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(1537, 388)
+
+[node name="fruit7" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(1605, 387)
+
+[node name="fruit8" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(1675, 413)
+
+[node name="fruit9" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(1718, 465)
+
+[node name="fruit10" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2246, 409)
+
+[node name="fruit11" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2301, 409)
+
+[node name="fruit12" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2274, 367)
+
+[node name="fruit13" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2954, 372)
+
+[node name="fruit14" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2954, 307)
+
+[node name="fruit15" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2955, 243)
+
+[node name="fruit16" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2955, 176)
+
+[node name="fruit17" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2954, 110)
+
+[node name="fruit18" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(2955, 47)
+
+[node name="fruit19" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(4637, -52)
+
+[node name="fruit20" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(5074, -66)
+
+[node name="fruit21" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(5473, -51)
+
+[node name="fruit22" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(5843, -46)
+
+[node name="fruit23" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(6213, -27)
+
+[node name="fruit24" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(7689, 153)
+
+[node name="fruit25" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(7690, 91)
+
+[node name="fruit26" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(7690, 31)
+
+[node name="fruit27" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(7689, -33)
+
+[node name="fruit28" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(9878, 170)
+
+[node name="fruit29" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(9927, 171)
+
+[node name="fruit30" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(9877, 121)
+
+[node name="fruit31" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(9927, 121)
+
+[node name="fruit32" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10102, -25)
+
+[node name="fruit33" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10172, -25)
+
+[node name="fruit34" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10241, -23)
+
+[node name="fruit35" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10317, -25)
+
+[node name="fruit36" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10655, 38)
+
+[node name="fruit37" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10714, 39)
+
+[node name="fruit38" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10763, 37)
+
+[node name="fruit39" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10823, 38)
+
+[node name="fruit40" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10890, 37)
+
+[node name="fruit41" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(10952, 38)
+
+[node name="fruit42" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11007, 35)
+
+[node name="fruit43" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11063, 34)
+
+[node name="fruit44" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11140, 35)
+
+[node name="fruit45" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11213, 34)
+
+[node name="fruit46" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11272, 33)
+
+[node name="fruit47" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11334, 32)
+
+[node name="fruit48" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11403, 33)
+
+[node name="fruit49" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11473, 32)
+
+[node name="fruit50" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11538, 31)
+
+[node name="fruit51" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11913, 3)
+
+[node name="fruit52" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(11977, 39)
+
+[node name="fruit53" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12040, 71)
+
+[node name="fruit54" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12091, 103)
+
+[node name="fruit55" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12153, 145)
+
+[node name="fruit56" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12222, 165)
+
+[node name="fruit57" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12285, 195)
+
+[node name="fruit58" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12355, 220)
+
+[node name="fruit59" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12412, 226)
+
+[node name="fruit60" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12476, 225)
+
+[node name="fruit61" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12535, 262)
+
+[node name="fruit62" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12606, 263)
+
+[node name="fruit63" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12674, 262)
+
+[node name="fruit64" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12737, 262)
+
+[node name="fruit65" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12787, 226)
+
+[node name="fruit66" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12855, 199)
+
+[node name="fruit67" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(12948, 169)
+
+[node name="fruit68" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13042, 162)
+
+[node name="fruit69" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13118, 134)
+
+[node name="fruit70" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13191, 129)
+
+[node name="fruit71" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13258, 96)
+
+[node name="fruit72" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13323, 80)
+
+[node name="fruit73" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13378, 30)
+
+[node name="fruit74" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13435, -9)
+
+[node name="fruit75" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13496, -43)
+
+[node name="fruit76" parent="fruits" instance=ExtResource("8_o6vwa")]
+position = Vector2(13566, -59)
 
 [node name="portal" parent="." instance=ExtResource("10_xmlyr")]
-position = Vector2(-693, 288)
+position = Vector2(6336, 382)
 
 [node name="portal2" parent="." instance=ExtResource("10_xmlyr")]
-position = Vector2(1579, 510)
-
-[node name="init_cutscene_1" type="Area2D" parent="."]
-collision_mask = 16
-script = ExtResource("11_c5eje")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="init_cutscene_1"]
-position = Vector2(1917, -207)
-shape = SubResource("RectangleShape2D_asv48")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="init_cutscene_1"]
-
-[node name="ColorRect" type="ColorRect" parent="init_cutscene_1/CanvasLayer"]
-offset_left = -262.0
-offset_top = -219.0
-offset_right = 1767.0
-offset_bottom = 922.0
-color = Color(0, 0, 0, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="init_cutscene_1"]
-libraries = {
-"": SubResource("AnimationLibrary_utfa7")
-}
-
-[node name="audio_fondo" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("12_xuuog")
-volume_db = -7.443
-script = ExtResource("13_xu4oh")
-
-[node name="fruit3" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(1393, 416)
-
-[node name="fruit4" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(1390, 332)
-fruitType = "banana"
-
-[node name="fruit5" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(1389, 250)
-
-[node name="fruit6" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(1387, 179)
-fruitType = "banana"
-
-[node name="fruit7" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(1388, 113)
-
-[node name="trampoline3" parent="." instance=ExtResource("6_3undh")]
-position = Vector2(-774, 324)
-
-[node name="deathzone" parent="." instance=ExtResource("14_15gnw")]
-position = Vector2(-2067, 901)
+position = Vector2(9199, 161)
 
 [node name="trophy" parent="." instance=ExtResource("15_201up")]
-position = Vector2(6087, -1055)
+position = Vector2(14639, -64)
 
-[node name="spikes" parent="." instance=ExtResource("16_q25wc")]
-position = Vector2(746, 529)
-low_health_threshold = 15
-
-[node name="trampoline2" parent="." instance=ExtResource("6_3undh")]
-position = Vector2(3305, 355)
-
-[node name="spikes2" parent="." instance=ExtResource("16_q25wc")]
-position = Vector2(3590, 115)
-
-[node name="spikes3" parent="." instance=ExtResource("16_q25wc")]
-position = Vector2(3453, 112)
-
-[node name="fruit8" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(3452, 58)
-
-[node name="fruit9" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(3593, 51)
-
-[node name="fruit10" parent="." instance=ExtResource("8_o6vwa")]
-position = Vector2(4554, 85)
-
-[node name="trampoline5" parent="." instance=ExtResource("6_3undh")]
-position = Vector2(4779, -634)
-
-[node name="spikeball2" parent="." instance=ExtResource("7_gddv0")]
-position = Vector2(4035, -643)
-
-[node name="trophy2" parent="." instance=ExtResource("15_201up")]
-position = Vector2(6501, 320)
-
-[node name="trampoline6" parent="." instance=ExtResource("6_3undh")]
-position = Vector2(4449, 69)
-
-[node name="radio" parent="." instance=ExtResource("17_btlpp")]
-position = Vector2(-15, 529)
-
-[node name="enemy_bum" parent="." instance=ExtResource("4_24l7q")]
-position = Vector2(2504, 336)
-scale = Vector2(1.4, 1.4)
-
-[connection signal="body_entered" from="init_cutscene_1" to="init_cutscene_1" method="_on_body_entered"]
-[connection signal="animation_finished" from="init_cutscene_1/AnimationPlayer" to="init_cutscene_1" method="_on_animation_player_animation_finished"]
+[node name="map_1" parent="." instance=ExtResource("1_t6r6j")]

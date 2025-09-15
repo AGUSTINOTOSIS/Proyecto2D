@@ -1,0 +1,143 @@
+[gd_scene load_steps=9 format=3 uid="uid://f2dngv55doay"]
+
+[ext_resource type="PackedScene" uid="uid://d24dj7hfq4l7i" path="res://scenes/maps/map_tutorial.tscn" id="1_fwutl"]
+[ext_resource type="PackedScene" uid="uid://4dax11kb47qx" path="res://characters/player.tscn" id="2_2g0ir"]
+[ext_resource type="PackedScene" uid="uid://cle4xbp0850eb" path="res://scenes/fondos/fondo_2.tscn" id="3_yi8uw"]
+[ext_resource type="Texture2D" uid="uid://damancc6ey5qn" path="res://Free/controls/w_light.png" id="4_01yop"]
+[ext_resource type="Texture2D" uid="uid://bcnsg71c8xqb7" path="res://Free/controls/s_light.png" id="5_iubg8"]
+[ext_resource type="Texture2D" uid="uid://dx5g1bl8esbkw" path="res://Free/controls/a_key_light.png" id="6_4xvo6"]
+[ext_resource type="Texture2D" uid="uid://boaien3hhwbkj" path="res://Free/controls/d_light.png" id="7_cffa1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_af8a5"]
+font_size = 22
+
+[node name="word_tutorial" type="Node2D"]
+
+[node name="map_tutorial" parent="." instance=ExtResource("1_fwutl")]
+
+[node name="fondo_2" parent="." instance=ExtResource("3_yi8uw")]
+
+[node name="player" parent="." instance=ExtResource("2_2g0ir")]
+position = Vector2(62, 559)
+
+[node name="labels" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="labels"]
+z_index = -1
+offset_left = 51.0
+offset_top = 396.0
+offset_right = 355.0
+offset_bottom = 461.0
+text = "¡Hola y Bienvenido
+al Tutorial!"
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label2" type="Label" parent="labels"]
+z_index = -1
+offset_left = 260.0
+offset_top = 414.0
+offset_right = 406.0
+offset_bottom = 445.0
+text = "Tus controles"
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label3" type="Label" parent="labels"]
+z_index = -1
+offset_left = 516.0
+offset_top = 476.0
+offset_right = 683.0
+offset_bottom = 541.0
+text = "Salta con la
+tacla \"ESPACIO\""
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label6" type="Label" parent="labels"]
+z_index = -1
+offset_left = 2086.0
+offset_top = 462.0
+offset_right = 2311.0
+offset_bottom = 561.0
+text = "Te puedes pegar a
+los bloques amarillos
+de las paredes"
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label4" type="Label" parent="labels"]
+z_index = -1
+offset_left = 205.0
+offset_top = 546.0
+offset_right = 461.0
+offset_bottom = 611.0
+text = "Tambien te mueves con
+las flechas direccionales"
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label5" type="Label" parent="labels"]
+z_index = -1
+offset_left = 949.0
+offset_top = 415.0
+offset_right = 1218.0
+offset_bottom = 548.0
+text = "Puedes dar doble salto
+aprentando la tecla
+\"ESPACIO\"dos veces"
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label7" type="Label" parent="labels"]
+z_index = -1
+offset_left = 2785.0
+offset_top = 426.0
+offset_right = 3054.0
+offset_bottom = 559.0
+text = "Ten cuidado en no caer
+al vacio en los niveles"
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label8" type="Label" parent="labels"]
+z_index = -1
+offset_left = 3110.0
+offset_top = 455.0
+offset_right = 3434.0
+offset_bottom = 588.0
+text = "Y por ultimo, evita las trampas
+y enemigos, no hace falta
+explicar porque"
+label_settings = SubResource("LabelSettings_af8a5")
+
+[node name="Label9" type="Label" parent="labels"]
+z_index = -1
+offset_left = 3615.0
+offset_top = 447.0
+offset_right = 3939.0
+offset_bottom = 580.0
+text = "¡Eso es todo, llega al
+trofeo para ganar 
+los niveles!"
+label_settings = SubResource("LabelSettings_af8a5")
+horizontal_alignment = 1
+
+[node name="images" type="Node" parent="."]
+
+[node name="WLight" type="Sprite2D" parent="images"]
+z_index = -1
+texture_filter = 1
+position = Vector2(325, 474)
+texture = ExtResource("4_01yop")
+
+[node name="SLight" type="Sprite2D" parent="images"]
+z_index = -1
+texture_filter = 1
+position = Vector2(325, 537)
+texture = ExtResource("5_iubg8")
+
+[node name="AKeyLight" type="Sprite2D" parent="images"]
+z_index = -1
+texture_filter = 1
+position = Vector2(283, 506)
+texture = ExtResource("6_4xvo6")
+
+[node name="DLight" type="Sprite2D" parent="images"]
+z_index = -1
+texture_filter = 1
+position = Vector2(369, 507)
+texture = ExtResource("7_cffa1")

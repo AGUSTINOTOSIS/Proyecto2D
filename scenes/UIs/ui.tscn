@@ -1,15 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhvdrxog34jso"]
+[gd_scene load_steps=9 format=3 uid="uid://bhvdrxog34jso"]
 
 [ext_resource type="Script" path="res://scrips/ui.gd" id="1_eoux4"]
 [ext_resource type="AudioStream" uid="uid://bv70022dhgl24" path="res://musica/READY OR NOT.mp3" id="2_kcvqd"]
+[ext_resource type="Texture2D" uid="uid://fmc34t6sumi3" path="res://Free/visuals_effects/Effect_5.png" id="3_v4qm1"]
+[ext_resource type="Texture2D" uid="uid://d1tu7qglpvbtf" path="res://Free/visuals_effects/Effect_2.png" id="4_yxeia"]
+[ext_resource type="Texture2D" uid="uid://l1wof1u5svyq" path="res://Free/visuals_effects/Effect_7.png" id="5_ibula"]
+[ext_resource type="Texture2D" uid="uid://gt3mathrtndj" path="res://Free/visuals_effects/Effect_1.png" id="6_whfsh"]
+[ext_resource type="Texture2D" uid="uid://pe6mom7r288h" path="res://Free/visuals_effects/Effect_3.png" id="7_q6c5e"]
+[ext_resource type="Texture2D" uid="uid://cbea0tq16706v" path="res://Free/visuals_effects/Effect_6.png" id="8_n3mp8"]
 
-[node name="UI" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer" groups=["ui"]]
 script = ExtResource("1_eoux4")
 
 [node name="damageOverlay" type="ColorRect" parent="."]
 offset_right = 1158.0
 offset_bottom = 656.0
 color = Color(0.552941, 0, 0.152941, 0)
+
+[node name="Effect5" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_v4qm1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 42.0
+color = Color(0.355314, 0.355314, 0.355314, 1)
 
 [node name="health_ProgressBar" type="ProgressBar" parent="."]
 offset_left = 57.0
@@ -40,9 +57,55 @@ offset_top = 3.0
 offset_right = 1056.0
 offset_bottom = 32.0
 
+[node name="wood" type="Label" parent="."]
+offset_left = 373.0
+offset_top = 12.0
+offset_right = 437.0
+offset_bottom = 35.0
+text = "Madera:"
+
 [node name="countdown" type="Timer" parent="."]
 
 [node name="emergencia" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_kcvqd")
 
+[node name="freeze_timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="intensidad_2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_yxeia")
+
+[node name="intensidad_3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+position = Vector2(576, 324.5)
+scale = Vector2(0.6, 0.599074)
+texture = ExtResource("5_ibula")
+
+[node name="intensidad_4" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_whfsh")
+
+[node name="intensidad_5" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("7_q6c5e")
+
+[node name="intensidad_1" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("8_n3mp8")
+
 [connection signal="timeout" from="countdown" to="." method="_on_countdown_timeout"]
+[connection signal="timeout" from="freeze_timer" to="." method="_on_freeze_timer_timeout"]

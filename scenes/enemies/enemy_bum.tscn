@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjhmk4v8dsa7i"]
+[gd_scene load_steps=7 format=3 uid="uid://bjhmk4v8dsa7i"]
 
-[ext_resource type="Script" path="res://enemy_bum.gd" id="1_dlv2k"]
+[ext_resource type="Script" path="res://scrips/enemy_bum.gd" id="1_dlv2k"]
 [ext_resource type="Texture2D" uid="uid://cqu0wccmk5jpd" path="res://Free/Traps/Rock Head/Idle.png" id="2_6s007"]
 [ext_resource type="PackedScene" uid="uid://dotip7yl7xlj0" path="res://scenes/enemies/bullet.tscn" id="2_fhc4v"]
+[ext_resource type="PackedScene" uid="uid://bjo5546ulxrnb" path="res://scenes/enemies/ice_bullet.tscn" id="3_iyvr1"]
+[ext_resource type="AudioStream" uid="uid://ck0r878ra053e" path="res://sonidos/animatedShot.mp3" id="4_t6o77"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xiocx"]
 radius = 396.032
@@ -12,6 +14,7 @@ collision_layer = 17
 collision_mask = 17
 script = ExtResource("1_dlv2k")
 bullet_scene = ExtResource("2_fhc4v")
+ice_bullet_scene = ExtResource("3_iyvr1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -29,6 +32,9 @@ collision_mask = 17
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_t6o77")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

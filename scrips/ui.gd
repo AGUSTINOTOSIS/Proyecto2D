@@ -1,21 +1,30 @@
 extends CanvasLayer
 
 @onready var damage_overlay = $damageOverlay
+@onready var freeze_effect = $Effect5
+@onready var freeze_timer = $freeze_timer
 
 @onready var timer_label = $tiempo_label
 @onready var countdown_timer = $countdown
 @onready var audio_stream_player = $emergencia
 
-var time_left : int = 180
+var time_left : int = 400
 var special_music_playing: bool = false
 var camera_shake_playing: bool = false
 var original_volume: float = 0.0
 
 var damage_color = Color("#8d0027")
 var max_alpha = 0.4
+var wood_count: int = 0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if freeze_effect:
+		freeze_effect.modulate.a = 0
+		freeze_effect.visible = false
+		
+		
 	damage_overlay.color = damage_color
 	damage_overlay.color.a = 0
 	damage_overlay.visible = false
@@ -32,6 +41,38 @@ func _ready():
 	if bg_music:
 		original_volume = bg_music.volume_db
 		
+func show_freeze_effect(duration: float):
+	if freeze_effect and freeze_timer:
+		freeze_timer.stop()
+		var tween = create_tween()
+		tween.tween_property(freeze_effect, "modulate:a", 1.0, 0.1)
+		freeze_effect.visible = true
+		
+		freeze_timer.wait_time = duration
+		freeze_timer.start()
+		
+func extend_freeze_effect(duration: float):
+	if freeze_effect and freeze_effect.visible:
+		if freeze_timer:
+			freeze_timer.wait_time = duration
+			freeze_timer.start()
+			
+func hide_freeze_effect():
+	if freeze_effect:
+		var tween_hide = create_tween()
+		tween_hide.set_parallel(true)
+		tween_hide.tween_property(freeze_effect, "modulate:a", 0.0, 1.0)
+		tween_hide.tween_callback(func():
+			if freeze_effect and freeze_effect.visible:
+				freeze_effect.visible = false
+		).set_delay(1.0)
+		
+func _on_freeze_timer_timeout() -> void:
+	var player = get_parent().get_node("player")
+	if player and player.has_method("is_frozen") and not player.is_frozen:
+			hide_freeze_effect()
+
+
 func update_damage_effect(health_percent: float):
 	var lost_health = 100 - health_percent
 	var alpha = min(max_alpha, (lost_health / 100.0) * max_alpha)
@@ -76,7 +117,7 @@ func start_camera_shake():
 	camera_shake_playing = true
 	var player = get_parent().get_node("player")
 	if player and player.has_node("Camera2D"):
-		player.get_node("Camera2D").shake_screen(1.0, 0.0, true) #20.0
+		player.get_node("Camera2D").shake_screen(20.0, 0.0, true)
 		
 func stop_camera_shake():
 	camera_shake_playing = false
@@ -93,18 +134,9 @@ func start_special_effects():
 	if bg_music:
 		var tween = create_tween()
 		tween.tween_property(bg_music, "volume_db", -80.0, 5.0)
-		
-	# Silenciar música de radio si está sonando
-	
-	#FIVERR: may want to tweak the values a bit, here, depending on what SOUNDS better.
 	var tween_radio = create_tween()
 	tween_radio.tween_property(Radio, "MAX_VOLUME", -20.0, 3.0)
 	tween_radio.tween_property(Radio, "BG_MUSIC_REDUCTION", -20.0, 3.0)
-	#var radios = get_tree().get_nodes_in_group("radio")
-	#for radio in radios:
-		#if radio.audio_player.playing:
-			#tween_radio.tween_property(radio.audio_player, "volume_db", -20.0, 3.0)
-			
 		
 func end_game():
 	var player = get_parent().get_node("player")
@@ -114,3 +146,63 @@ func end_game():
 
 func stop_timer():
 	countdown_timer.stop()  # Detiene el contador
+	
+func add_wood(amount: int):
+	wood_count += amount
+	update_wood_display()
+	#if has_node("wood"):
+		#$wood.text = "Madera: " + str(wood_count)
+		
+func has_wood(amount: int) -> bool:
+	return wood_count >= amount
+	
+func use_wood(amount: int):
+	if has_wood(amount):
+		wood_count -= amount
+		update_wood_display()
+
+func update_wood_display():
+	if has_node("wood"):
+		$wood.text = "Madera: " + str(wood_count)
+		
+func show_intensity_effect(effect_name: String):
+	if has_node(effect_name):
+		var effect = get_node(effect_name)
+		var tween = create_tween()
+		tween.tween_property(effect, "modulate:a", 1.0, 2.0)
+		effect.visible = true
+		
+func hide_all_intensity_effects():
+	for i in range(1, 6):
+		var effect_name = "intensidad_" + str(i)
+		if has_node(effect_name):
+			var effect = get_node(effect_name)
+			var tween = create_tween()
+			tween.tween_property(effect, "modulate:a", 0.0, 1.0)
+			tween.tween_callback(func():
+				if effect and effect.visible:
+					effect.visible = false
+			).set_delay(1.0)
+		
+#func reduce_intensity_effects(amount: float):
+	#for i in range(1, 6):
+		#var effect_name = "intensidad_" + str(i)
+		#if has_node(effect_name):
+			#var effect = get_node(effect_name)
+			#if effect.modulate.a > 0:
+				#var new_alpha = max(0.0, effect.modulate.a - amount)
+				#effect.modulate.a = new_alpha
+				#if new_alpha <= 0.1:
+					#effect.visible = false
+
+func reduce_intensity_effects_reverse(amount: float):
+	for i in range(5, 0, -1):
+		var effect_name = "intensidad_" + str(i)
+		if has_node(effect_name):
+			var effect = get_node(effect_name)
+			if effect.modulate.a > 0:
+				var new_alpha = max(0.0, effect.modulate.a - amount)
+				effect.modulate.a = new_alpha
+				if new_alpha <= 0.1:
+					effect.visible = false
+				break

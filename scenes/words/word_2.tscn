@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://caskqolytu8vq"]
+
+[ext_resource type="PackedScene" uid="uid://cie0xx3w2ya8x" path="res://scenes/maps/map_2.tscn" id="1_p6eow"]
+[ext_resource type="PackedScene" uid="uid://bhvdrxog34jso" path="res://scenes/UIs/ui.tscn" id="1_plgii"]
+[ext_resource type="PackedScene" uid="uid://4dax11kb47qx" path="res://characters/player.tscn" id="2_oejmf"]
+[ext_resource type="PackedScene" uid="uid://88xuhuxtajik" path="res://scenes/objects/spikeball.tscn" id="3_dvi8l"]
+[ext_resource type="PackedScene" uid="uid://bh6kq7weerqia" path="res://scenes/fondos/fondo_1.tscn" id="3_tutuh"]
+[ext_resource type="PackedScene" uid="uid://gd470h1fw37l" path="res://scenes/objects/trampoline.tscn" id="3_u8m2c"]
+[ext_resource type="PackedScene" uid="uid://dp2u3wqjflb1d" path="res://scenes/UIs/pause.tscn" id="5_42yyo"]
+
+[node name="word_2" type="Node2D"]
+
+[node name="UI" parent="." instance=ExtResource("1_plgii")]
+
+[node name="pause" parent="." instance=ExtResource("5_42yyo")]
+
+[node name="player" parent="." instance=ExtResource("2_oejmf")]
+z_index = 1
+position = Vector2(71, 480)
+
+[node name="fondo_1" parent="." instance=ExtResource("3_tutuh")]
+
+[node name="spikeball" parent="." instance=ExtResource("3_dvi8l")]
+position = Vector2(5944, 38)
+
+[node name="spikeball2" parent="." instance=ExtResource("3_dvi8l")]
+position = Vector2(7230, -122)
+
+[node name="trampoline" parent="." instance=ExtResource("3_u8m2c")]
+position = Vector2(6348, 486)
+
+[node name="trampoline2" parent="." instance=ExtResource("3_u8m2c")]
+position = Vector2(7693, 197)
+
+[node name="map_2" parent="." instance=ExtResource("1_p6eow")]

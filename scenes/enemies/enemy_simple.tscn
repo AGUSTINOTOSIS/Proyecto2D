@@ -1,0 +1,165 @@
+[gd_scene load_steps=19 format=3 uid="uid://db6pyiq44arhy"]
+
+[ext_resource type="Script" path="res://scrips/enemy_simple.gd" id="1_eaunr"]
+[ext_resource type="Texture2D" uid="uid://cb8ud434vr0fj" path="res://Free/Main Characters/Virtual Guy/Run (32x32).png" id="2_ass2v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psqpw"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xactp"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svt2k"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygbwd"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_803v6"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cds3v"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2uvv"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e657o"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itovu"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vknh2"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sunt4"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r15yx"]
+atlas = ExtResource("2_ass2v")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvtty"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psqpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xactp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svt2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygbwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_803v6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cds3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2uvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e657o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itovu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vknh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sunt4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r15yx")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jp6nc"]
+size = Vector2(12, 20.3333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7e81"]
+size = Vector2(18, 20.6667)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ytur"]
+size = Vector2(10, 2.75)
+
+[node name="enemy_simple" type="CharacterBody2D" groups=["enemies"]]
+scale = Vector2(1.5, 1.5)
+collision_mask = 9
+script = ExtResource("1_eaunr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_nvtty")
+animation = &"run"
+frame = 4
+frame_progress = 0.519944
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2.83333)
+shape = SubResource("RectangleShape2D_jp6nc")
+
+[node name="raycast_floor_detection" type="RayCast2D" parent="."]
+position = Vector2(9.5, -4.5)
+target_position = Vector2(0, 18)
+
+[node name="raycast_wall_detection" type="RayCast2D" parent="."]
+position = Vector2(0, 10.5)
+target_position = Vector2(12, 0)
+
+[node name="damage_bodyEnemy" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_bodyEnemy"]
+position = Vector2(-0.333333, 1.66667)
+shape = SubResource("RectangleShape2D_h7e81")
+debug_color = Color(0.704133, 0.271064, 1, 0.42)
+
+[node name="damage_zone" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_zone"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_0ytur")
+debug_color = Color(0.918076, 0.197456, 0.519231, 0.42)
+
+[node name="stomp_cooldown_timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="damage_cooldown_timer" type="Timer" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.333333, 1.66667)
+scale = Vector2(1.23333, 1.43333)
+
+[connection signal="body_entered" from="damage_bodyEnemy" to="." method="_on_damage_body_enemy_body_entered"]
+[connection signal="body_exited" from="damage_bodyEnemy" to="." method="_on_damage_body_enemy_body_exited"]
+[connection signal="body_entered" from="damage_zone" to="." method="_on_damage_zone_body_entered"]
+[connection signal="timeout" from="stomp_cooldown_timer" to="." method="_on_stomp_cooldown_timer_timeout"]
+[connection signal="timeout" from="damage_cooldown_timer" to="." method="_on_damage_cooldown_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

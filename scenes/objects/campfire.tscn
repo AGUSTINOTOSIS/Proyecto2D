@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://bd3xolrq38g1p"]
+
+[ext_resource type="Script" path="res://scrips/campfire.gd" id="1_uvcb6"]
+[ext_resource type="Texture2D" uid="uid://ddioxdrqtfjy2" path="res://Free/campfire/CampFire1.png" id="2_uwmci"]
+[ext_resource type="Texture2D" uid="uid://bjhnv45wrsrvt" path="res://Free/campfire/CampFire2.png" id="3_sgn7s"]
+[ext_resource type="Texture2D" uid="uid://fnkpuwyfpk57" path="res://Free/campfire/CampFire3.png" id="4_au1pj"]
+[ext_resource type="Texture2D" uid="uid://cr4nxfx6d631l" path="res://Free/campfire/CampFire4.png" id="5_uvtbx"]
+[ext_resource type="Texture2D" uid="uid://btp1p741cx3i" path="res://Free/campfire/CampFire5.png" id="6_ftchv"]
+[ext_resource type="Texture2D" uid="uid://ds4u7wiludj8h" path="res://Free/campfire/CampFire7.png" id="7_jyg10"]
+[ext_resource type="Texture2D" uid="uid://di8htpyb482gu" path="res://Free/campfire/CampFire6.png" id="8_bv54j"]
+[ext_resource type="Texture2D" uid="uid://df5ell3rnn543" path="res://Free/campfire/CampFirenothing.png" id="9_xdcsh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snyeb"]
+size = Vector2(307, 210)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xb60l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uwmci")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sgn7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_au1pj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uvtbx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ftchv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jyg10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bv54j")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_xdcsh")
+}],
+"loop": false,
+"name": &"no_fire",
+"speed": 5.0
+}]
+
+[node name="campfire" type="Area2D" groups=["bonfire"]]
+script = ExtResource("1_uvcb6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -62)
+shape = SubResource("RectangleShape2D_snyeb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_xb60l")
+animation = &"fire"
+frame_progress = 0.710409
+
+[node name="ReductionTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="ReductionTimer" to="." method="_on_reduction_timer_timeout"]

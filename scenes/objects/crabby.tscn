@@ -1,0 +1,116 @@
+[gd_scene load_steps=21 format=3 uid="uid://csevufkdfpkur"]
+
+[ext_resource type="Script" path="res://scrips/crabby.gd" id="1_q2db2"]
+[ext_resource type="Texture2D" uid="uid://dt4t3khbubmpc" path="res://Free/Main Characters/Crabby/01-Idle/Idle 01.png" id="2_quun3"]
+[ext_resource type="Texture2D" uid="uid://cwv3qgavviph2" path="res://Free/Main Characters/Crabby/01-Idle/Idle 02.png" id="3_xc4ss"]
+[ext_resource type="Texture2D" uid="uid://5i8cflp0esgr" path="res://Free/Main Characters/Crabby/01-Idle/Idle 03.png" id="4_jvmrx"]
+[ext_resource type="Texture2D" uid="uid://c673oj0qa5uki" path="res://Free/Main Characters/Crabby/01-Idle/Idle 04.png" id="5_pa1r8"]
+[ext_resource type="Texture2D" uid="uid://chrqjrk8cmjjl" path="res://Free/Main Characters/Crabby/01-Idle/Idle 05.png" id="6_l2y68"]
+[ext_resource type="Texture2D" uid="uid://bp5xugykdauyq" path="res://Free/Main Characters/Crabby/01-Idle/Idle 06.png" id="7_0iw4f"]
+[ext_resource type="Texture2D" uid="uid://ktq002yjott0" path="res://Free/Main Characters/Crabby/01-Idle/Idle 07.png" id="8_bkwrj"]
+[ext_resource type="Texture2D" uid="uid://hp33j1xbyq8g" path="res://Free/Main Characters/Crabby/01-Idle/Idle 08.png" id="9_qro75"]
+[ext_resource type="Texture2D" uid="uid://dpyc06ychwe3o" path="res://Free/Main Characters/Crabby/01-Idle/Idle 09.png" id="10_3xtoy"]
+[ext_resource type="Texture2D" uid="uid://bhpmmldn0j384" path="res://Free/Main Characters/Crabby/02-Run/Run 01.png" id="11_21131"]
+[ext_resource type="Texture2D" uid="uid://cnnbunr4a8340" path="res://Free/Main Characters/Crabby/02-Run/Run 02.png" id="12_220ob"]
+[ext_resource type="Texture2D" uid="uid://baqov2qxgucp0" path="res://Free/Main Characters/Crabby/02-Run/Run 03.png" id="13_175lh"]
+[ext_resource type="Texture2D" uid="uid://dc0e1c1oqpgif" path="res://Free/Main Characters/Crabby/02-Run/Run 04.png" id="14_2720x"]
+[ext_resource type="Texture2D" uid="uid://dal74c1mq311f" path="res://Free/Main Characters/Crabby/02-Run/Run 05.png" id="15_ahcyn"]
+[ext_resource type="Texture2D" uid="uid://dy466k1cgje1a" path="res://Free/Main Characters/Crabby/02-Run/Run 06.png" id="16_3rlyx"]
+[ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="17_dyqo6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_usxgx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_quun3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xc4ss")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jvmrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pa1r8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_l2y68")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0iw4f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bkwrj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_qro75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3xtoy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_21131")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_220ob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_175lh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_2720x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ahcyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_3rlyx")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ut1g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u82vn"]
+size = Vector2(76, 36)
+
+[node name="crabby" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_q2db2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_usxgx")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1ut1g")
+
+[node name="StopTimer" type="Timer" parent="."]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(28, -8)
+shape = SubResource("RectangleShape2D_u82vn")
+debug_color = Color(0.764642, 0.31214, 0.811958, 0.42)
+
+[node name="ELight" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(26, -38)
+texture = ExtResource("17_dyqo6")
+
+[node name="TimerInteraccion" type="Timer" parent="."]
+
+[connection signal="timeout" from="StopTimer" to="." method="_on_stop_timer_timeout"]
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
+[connection signal="timeout" from="TimerInteraccion" to="." method="_on_timer_interaccion_timeout"]

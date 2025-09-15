@@ -29,6 +29,14 @@ scale = Vector2(2, 2)
 theme_override_colors/icon_disabled_color = Color(0.835718, 1.73271e-06, 4.81307e-07, 1)
 text = "VOLVER AL MENU"
 
+[node name="exit" type="Button" parent="."]
+offset_left = 406.0
+offset_top = 467.0
+offset_right = 598.0
+offset_bottom = 501.0
+scale = Vector2(2, 2)
+text = "SALIR DEL JUEGO"
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(1, 0, 0.117647, 1)
 offset_left = 409.0
@@ -39,3 +47,5 @@ scale = Vector2(4, 4)
 text = "GAME OVER"
 
 [connection signal="pressed" from="restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
