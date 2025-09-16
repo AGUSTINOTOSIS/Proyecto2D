@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://u5xgrkwwjnw2"]
+[gd_scene load_steps=18 format=4 uid="uid://u5xgrkwwjnw2"]
 
 [ext_resource type="Script" path="res://scrips/parallax_background.gd" id="1_a5g3j"]
 [ext_resource type="Script" path="res://scrips/main.gd" id="1_xq5ul"]
@@ -198,10 +198,87 @@ tracks/5/keys = {
 "values": [Vector2(0, 0), Vector2(0, -1000)]
 }
 
+[sub_resource type="Animation" id="Animation_xfq4y"]
+resource_name = "skip_intro"
+length = 19.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("intro 1/Label2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("intro 1/Label3:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("intro 1/Label4:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("music_intro:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 18.9333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("intro 1/Label5:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("intro 1:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1000)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xhmst"]
 _data = {
 "RESET": SubResource("Animation_y2sv7"),
-"intro": SubResource("Animation_o7pjs")
+"intro": SubResource("Animation_o7pjs"),
+"skip_intro": SubResource("Animation_xfq4y")
 }
 
 [node name="main" type="CanvasLayer"]

@@ -209,6 +209,7 @@ func stop_shake():
 	$Camera2D.offset = Vector2.ZERO
 	
 func apply_freeze(duration: float):
+	print("APPLY FREEZE!, ", duration)
 	if not is_frozen:
 		is_frozen = true
 		freeze_timer = duration

@@ -75,9 +75,9 @@ func complete_construction():
 	main_sprite.visible = true
 	health = max_health #restablecer vida
 	
-	collision_shape.set_deferred("disabled", false)
 	damage_timer.wait_time = 2.0
 	shake_timer.wait_time = 0.1
+	collision_shape.set_deferred("disabled", false)
 	enemy_detection_area.set_deferred("monitoring", true)
 	
 func _on_construction_timer_timeout() -> void:
@@ -92,9 +92,10 @@ func take_damage(amount: int = 1):
 	if not is_constructed:
 		return
 	health -= amount
-	start_shake()
 	if health <= 0:
 		destroy_door()
+	else:
+		start_shake()
 		
 func start_shake():
 	if is_shaking:
@@ -127,12 +128,16 @@ func destroy_door():
 			if push_direction == 0:
 				push_direction = 1 if randf() > 0.5 else -1
 			enemy.position.x += 10 * push_direction
+			enemy.handle_door_destroyed(self)
 	#reinicia la vida
 	health = max_health
 	damage_timer.stop()
 	construction_timer.stop()
 	#limpiar lista de enemigos
+	#for enemy in enemies_colliding:
+		#enemy.handle_door_destroyed(self)
 	enemies_colliding.clear()
+	
 	if player_near:
 		e_prompt.visible = true
 	
@@ -140,6 +145,7 @@ func _on_enemy_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and is_constructed:
 		if not enemies_colliding.has(body):
 			enemies_colliding.append(body)
+			body.last_wall_collision = self
 			if enemies_colliding.size() == 1:
 				damage_timer.start()
 				

@@ -15,7 +15,7 @@ func _ready() -> void:
 	start_button.grab_focus()
 	if Global.first_time_menu:
 		play_intro()
-		Global.first_time_menu = false  # marcar como visto
+		#Global.first_time_menu = false  # marcar como visto
 	else:
 		skip_intro()
 		
@@ -39,11 +39,12 @@ func play_intro():
 	
 	animation_player.play("intro")
 	await animation_player.animation_finished
-	
+	Global.first_time_menu = false
 	show_menu()
 
 func skip_intro_immediately():
 	animation_player.stop() # Detener la animación
+	animation_player.play("skip_intro") #New animation was added; basically does everything from the "intro" animation immedietely
 	music_intro.stop()
 	color_rect.visible = false
 	show_menu()

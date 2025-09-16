@@ -136,5 +136,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	
 func handle_door_destroyed(door: Node):
 	if last_wall_collision == door:
+		if not (animated_sprite.flip_h):
+			velocity.x = speed
+		else:
+			velocity.x = speed*-1
 		flip_direction()
 		print("Puerta destruida - Cambiando dirección")

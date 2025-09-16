@@ -118,6 +118,7 @@ func is_effect_visible(effect_name: String) -> bool:
 	return false
 
 func show_effect(effect_name: String):
+	print("TRY TO SHOW, ", effect_name)
 	var ui = get_tree().get_first_node_in_group("ui")
 	if ui and ui.has_node(effect_name):
 		var effect = ui.get_node(effect_name)
