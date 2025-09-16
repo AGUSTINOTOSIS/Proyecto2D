@@ -32,7 +32,7 @@ func player_heat_change() -> void:
 func update_frost(stage:int) -> void: #ALWAYS runs when the frost level changes
 	print("UPDATE TO FROST LEVEL ", stage)
 	heat_progress = 0
-	
+	frost_timer = frost_times[stage]
 	#frost_progress is used as the "last stage" value, UNTIL the end of this function, where it gets updated
 	
 	if(stage == 0): #JUST reached max warmth
@@ -80,7 +80,7 @@ func update_frost(stage:int) -> void: #ALWAYS runs when the frost level changes
 func _process(delta: float) -> void:
 	if(player_in_cold):
 		frost_timer += delta
-		print("COLD DATA: ", frost_progress, ": ", frost_timer)
+		#print("COLD DATA: ", frost_progress, ": ", frost_timer)
 		for i in range(len(frost_times)-1, 0, -1): #4->1
 			#Update things when the timer reaches a different "stage" of progression
 			if frost_timer >= frost_times[i]: 
@@ -94,6 +94,6 @@ func _process(delta: float) -> void:
 		
 	else: #When player is getting warm
 		heat_progress += delta
-		print("HEAT DATA: ", heat_progress, "/", heat_times[frost_progress])
+		#print("HEAT DATA: ", heat_progress, "/", heat_times[frost_progress])
 		if(heat_progress >= heat_times[frost_progress]):
 			update_frost(max(frost_progress-1, 0)) #Frost can ONLY ever drop to 0; never below that
