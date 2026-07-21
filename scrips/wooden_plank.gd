@@ -9,6 +9,13 @@ extends StaticBody2D
 @onready var progress_sprite = $ProgressSprite
 @onready var construction_timer = $ConstructionTimer
 @onready var main_sprite = $Sprite2D
+@onready var build_sound_player = $BuildSoundPlayer
+@onready var complete_sound_players = [
+	$CompleteSoundPlayer1,
+	$CompleteSoundPlayer2,
+	$CompleteSoundPlayer3,
+	$CompleteSoundPlayer4
+]
 
 var player_near: bool = false
 var construction_progress: int = 0
@@ -16,6 +23,10 @@ var max_progress: int = 8
 var is_constructed: bool = false
 var my_number: int = 1  # numero de este tablon
 var wood_required_per_press: int = 1  # madera requerida por cada E presionada
+
+var auto_build_timer: float = 0.0
+var auto_build_interval: float = 0.1  # Cada 0.5 segundos
+var is_auto_building: bool = false
 
 func _ready() -> void:
 	my_number = get_plank_number(name)
@@ -36,7 +47,7 @@ func _ready() -> void:
 		set_process(false)
 		interaction_area.set_deferred("monitoring", false)
 		interaction_area.set_deferred("monitorable", false)
-	
+
 func find_and_setup_next_planks():
 	if my_number != 1:
 		return
@@ -58,10 +69,19 @@ func get_plank_number(plank_name: String) -> int:
 			return number_part.to_int()
 	return 999
 	
-
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	#construccion manual
 	if player_near and not is_constructed and Input.is_action_just_pressed("interact_radio"):
 		try_advance_construction()
+	#contruccion automatica
+	if player_near and not is_constructed and Input.is_action_pressed("interact_radio"):
+		auto_build_timer += delta
+		if auto_build_timer >= auto_build_interval:
+			auto_build_timer = 0.0
+			try_advance_construction()
+	else:
+		auto_build_timer = 0.0
+		is_auto_building = false
 		
 func set_plank_visible(should_show: bool):
 	if main_sprite:
@@ -91,6 +111,7 @@ func _on_interaction_area_body_exited(body: Node2D) -> void:
 		e_prompt.visible = false
 		progress_sprite.visible = false
 		construction_timer.stop()
+		auto_build_timer = 0.0
 		
 func try_advance_construction():
 	# verificar si el jugador tiene suficiente madera
@@ -109,6 +130,10 @@ func advance_construction():
 	
 	e_prompt.visible = false
 	progress_sprite.visible = true
+	
+	# Reproducir sonido de construcción
+	if build_sound_player:
+		build_sound_player.play() 
 	
 	if progress_sprite:
 		progress_sprite.stop()
@@ -129,6 +154,13 @@ func complete_construction():
 	if top_collision and has_top_collision:
 		top_collision.set_deferred("disabled", false)
 	enable_next_plank()
+	
+	# Reproducir un sonido al azar al completar la construcción
+	if complete_sound_players.size() > 0:
+		var random_index = randi() % complete_sound_players.size()
+		var random_sound_player = complete_sound_players[random_index]
+		if random_sound_player:
+			random_sound_player.play()
 	
 func enable_next_plank():
 	var all_planks = get_tree().get_nodes_in_group("wooden_planks")

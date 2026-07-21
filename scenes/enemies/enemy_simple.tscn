@@ -1,7 +1,56 @@
-[gd_scene load_steps=19 format=3 uid="uid://db6pyiq44arhy"]
+[gd_scene load_steps=32 format=3 uid="uid://db6pyiq44arhy"]
 
-[ext_resource type="Script" path="res://scrips/enemy_simple.gd" id="1_eaunr"]
+[ext_resource type="Script" uid="uid://nyuopc72nia1" path="res://scrips/enemy_simple.gd" id="1_eaunr"]
 [ext_resource type="Texture2D" uid="uid://cb8ud434vr0fj" path="res://Free/Main Characters/Virtual Guy/Run (32x32).png" id="2_ass2v"]
+[ext_resource type="Texture2D" uid="uid://cj03hcth610nk" path="res://Free/Main Characters/Virtual Guy/Idle (32x32).png" id="2_hhods"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdb7q"]
+atlas = ExtResource("2_hhods")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pyhg"]
+atlas = ExtResource("2_hhods")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5h47"]
+atlas = ExtResource("2_hhods")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwp2g"]
+atlas = ExtResource("2_hhods")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyvdh"]
+atlas = ExtResource("2_hhods")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik4rd"]
+atlas = ExtResource("2_hhods")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f22r5"]
+atlas = ExtResource("2_hhods")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3djq"]
+atlas = ExtResource("2_hhods")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vec1r"]
+atlas = ExtResource("2_hhods")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iojih"]
+atlas = ExtResource("2_hhods")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2odka"]
+atlas = ExtResource("2_hhods")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1nr2"]
+atlas = ExtResource("2_hhods")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_psqpw"]
 atlas = ExtResource("2_ass2v")
@@ -55,6 +104,52 @@ region = Rect2(352, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fdb7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pyhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5h47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwp2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyvdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik4rd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f22r5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3djq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vec1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iojih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2odka")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1nr2")
+}],
+"loop": false,
+"name": &"reposo",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_psqpw")
 }, {
 "duration": 1.0,
@@ -102,7 +197,7 @@ size = Vector2(12, 20.3333)
 size = Vector2(18, 20.6667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ytur"]
-size = Vector2(10, 2.75)
+size = Vector2(16.666668, 2.75)
 
 [node name="enemy_simple" type="CharacterBody2D" groups=["enemies"]]
 scale = Vector2(1.5, 1.5)
@@ -113,8 +208,6 @@ script = ExtResource("1_eaunr")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_nvtty")
 animation = &"run"
-frame = 4
-frame_progress = 0.519944
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 2.83333)
@@ -142,7 +235,7 @@ collision_layer = 2
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damage_zone"]
-position = Vector2(0, -12)
+position = Vector2(-0.3333335, -12)
 shape = SubResource("RectangleShape2D_0ytur")
 debug_color = Color(0.918076, 0.197456, 0.519231, 0.42)
 
@@ -156,6 +249,9 @@ one_shot = true
 position = Vector2(0.333333, 1.66667)
 scale = Vector2(1.23333, 1.43333)
 
+[node name="IdleTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="body_entered" from="damage_bodyEnemy" to="." method="_on_damage_body_enemy_body_entered"]
 [connection signal="body_exited" from="damage_bodyEnemy" to="." method="_on_damage_body_enemy_body_exited"]
 [connection signal="body_entered" from="damage_zone" to="." method="_on_damage_zone_body_entered"]
@@ -163,3 +259,4 @@ scale = Vector2(1.23333, 1.43333)
 [connection signal="timeout" from="damage_cooldown_timer" to="." method="_on_damage_cooldown_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

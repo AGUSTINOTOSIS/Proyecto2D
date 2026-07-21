@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnecd3d1jtd5w"]
+
+[ext_resource type="Script" uid="uid://bj58kt38do0ai" path="res://scrips/muro.gd" id="1_ayvkf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nuern"]
+size = Vector2(20, 269)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wk0ua"]
+size = Vector2(23, 269)
+
+[node name="muro" type="StaticBody2D"]
+collision_mask = 16
+script = ExtResource("1_ayvkf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 124.5)
+shape = SubResource("RectangleShape2D_nuern")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(-1.5, 124.5)
+shape = SubResource("RectangleShape2D_wk0ua")
+debug_color = Color(0.6066674, 0.4278716, 0.855166, 0.41960785)
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

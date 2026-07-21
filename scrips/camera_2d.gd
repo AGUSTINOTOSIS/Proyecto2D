@@ -1,7 +1,7 @@
 extends Camera2D
 
 #se confioguran
-@export var shake_power: float = 25.0 #aumenta para mas movimiento a la camara
+@export var shake_power: float = 25.0 #aumenta para mas movimiento a la camara #25.0
 
 var current_shake_duration: float = 0.0
 var is_shaking := false
@@ -15,6 +15,7 @@ func shake_screen(power: float, duration: float, continuous: bool = false):
 	else:
 		current_shake_duration = duration
 		is_shaking = true
+		should_shake_continuously = false
 		
 func stop_shake():
 	should_shake_continuously = false

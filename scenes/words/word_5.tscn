@@ -1,8 +1,8 @@
 [gd_scene load_steps=27 format=3 uid="uid://lpl4x6vqmnmq"]
 
-[ext_resource type="Script" path="res://scenes/words/scripts words/word_1.gd" id="1_3co2g"]
+[ext_resource type="Script" uid="uid://x3ot8gtcvknm" path="res://scenes/words/scripts words/word_1.gd" id="1_3co2g"]
 [ext_resource type="PackedScene" uid="uid://bhvdrxog34jso" path="res://scenes/UIs/ui.tscn" id="2_c2k4s"]
-[ext_resource type="Script" path="res://scrips/init_cutscene_1.gd" id="3_jgw20"]
+[ext_resource type="Script" uid="uid://ickrrqd4u6x0" path="res://scrips/init_cutscene_1.gd" id="3_jgw20"]
 [ext_resource type="PackedScene" uid="uid://dp2u3wqjflb1d" path="res://scenes/UIs/pause.tscn" id="4_n71l7"]
 [ext_resource type="PackedScene" uid="uid://4dax11kb47qx" path="res://characters/player.tscn" id="5_2npe6"]
 [ext_resource type="PackedScene" uid="uid://bh6kq7weerqia" path="res://scenes/fondos/fondo_1.tscn" id="6_r1go2"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ddnkca5jfduuw" path="res://scenes/objects/fruit.tscn" id="10_65vo1"]
 [ext_resource type="PackedScene" uid="uid://dpuslonkvjey7" path="res://scenes/objects/portal.tscn" id="11_kgsvf"]
 [ext_resource type="AudioStream" uid="uid://f4yyc5vq3p73" path="res://musica/happy.mp3" id="12_l8hli"]
-[ext_resource type="Script" path="res://scrips/audio_fondo.gd" id="13_7c0oa"]
+[ext_resource type="Script" uid="uid://cebgvx3ppbr5" path="res://scrips/audio_fondo.gd" id="13_7c0oa"]
 [ext_resource type="PackedScene" uid="uid://drf84eyvypsn8" path="res://scenes/objects/deathzone.tscn" id="14_jhn32"]
 [ext_resource type="PackedScene" uid="uid://k5trxgvdpl2u" path="res://scenes/objects/trophy.tscn" id="15_n8q1t"]
 [ext_resource type="PackedScene" uid="uid://de2lpwhc83hi6" path="res://scenes/objects/spikes.tscn" id="16_7rqna"]
@@ -60,9 +60,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_utfa7"]
 _data = {
-"RESET": SubResource("Animation_cx4u2"),
-"to_black": SubResource("Animation_j7c5t"),
-"to_transparent": SubResource("Animation_ac23g")
+&"RESET": SubResource("Animation_cx4u2"),
+&"to_black": SubResource("Animation_j7c5t"),
+&"to_transparent": SubResource("Animation_ac23g")
 }
 
 [node name="word_5" type="Node2D"]
@@ -75,7 +75,7 @@ collision_mask = 16
 script = ExtResource("3_jgw20")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="init_cutscene_1"]
-position = Vector2(2047, 230)
+position = Vector2(2069, -170)
 shape = SubResource("RectangleShape2D_asv48")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="init_cutscene_1"]
@@ -89,7 +89,7 @@ color = Color(0, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="init_cutscene_1"]
 libraries = {
-"": SubResource("AnimationLibrary_utfa7")
+&"": SubResource("AnimationLibrary_utfa7")
 }
 
 [node name="pause" parent="." instance=ExtResource("4_n71l7")]
@@ -200,7 +200,7 @@ position = Vector2(-604, 305)
 position = Vector2(501, 437)
 
 [node name="enemy_bum2" parent="." instance=ExtResource("18_iukkf")]
-position = Vector2(2220, 149)
+position = Vector2(2221, 148)
 bullet_type = 1
 
 [node name="map_5" parent="." instance=ExtResource("21_7jtrp")]

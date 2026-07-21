@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var interaction_area = $InteractionArea
 @onready var e_prompt = $ELight
 @onready var interaction_cooldown_timer = $TimerInteraccion
+@onready var walk_sound_player = $WalkSoundPlayer
+@onready var give_wood_sound_player = $GiveWoodSoundPlayer
 
 var is_moving: bool = true
 var direction: int = 1
@@ -87,8 +89,12 @@ func check_zone_exit():
 func update_animation():
 	if is_stopped:
 		animated_sprite.play("idle")
+		if walk_sound_player.playing:
+			walk_sound_player.stop()  # Detener el sonido si está detenido
 	elif is_moving:
 		animated_sprite.play("run")
+		if not walk_sound_player.playing:
+			walk_sound_player.play()  # Reproducir el sonido si está caminando
 		# se gira el sprite segun la dirección
 	animated_sprite.flip_h = direction < 0
 	
@@ -130,6 +136,10 @@ func give_wood_to_player():
 	wood_given = true
 	interaction_ready = false
 	print("¡+60 de madera! Cooldown de 3 segundos iniciado")
+	
+	# Reproducir sonido de dar madera
+	if give_wood_sound_player:
+		give_wood_sound_player.play()
 	
 	if interaction_cooldown_timer:
 		interaction_cooldown_timer.start()

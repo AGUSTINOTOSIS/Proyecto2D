@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://csevufkdfpkur"]
+[gd_scene load_steps=23 format=3 uid="uid://csevufkdfpkur"]
 
-[ext_resource type="Script" path="res://scrips/crabby.gd" id="1_q2db2"]
+[ext_resource type="Script" uid="uid://uy0k7o6ogduh" path="res://scrips/crabby.gd" id="1_q2db2"]
 [ext_resource type="Texture2D" uid="uid://dt4t3khbubmpc" path="res://Free/Main Characters/Crabby/01-Idle/Idle 01.png" id="2_quun3"]
 [ext_resource type="Texture2D" uid="uid://cwv3qgavviph2" path="res://Free/Main Characters/Crabby/01-Idle/Idle 02.png" id="3_xc4ss"]
 [ext_resource type="Texture2D" uid="uid://5i8cflp0esgr" path="res://Free/Main Characters/Crabby/01-Idle/Idle 03.png" id="4_jvmrx"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://dal74c1mq311f" path="res://Free/Main Characters/Crabby/02-Run/Run 05.png" id="15_ahcyn"]
 [ext_resource type="Texture2D" uid="uid://dy466k1cgje1a" path="res://Free/Main Characters/Crabby/02-Run/Run 06.png" id="16_3rlyx"]
 [ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="17_dyqo6"]
+[ext_resource type="AudioStream" uid="uid://b4ju7yes56fsn" path="res://sonidos/Efecto de Sonido Don Cangrejo Caminando - Musica y Efectos de Sonido de memes sin Copyright.mp3" id="18_00fu7"]
+[ext_resource type="AudioStream" uid="uid://c8oq0pngg7yd4" path="res://sonidos/tomada_madera.mp3" id="19_qq74j"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_usxgx"]
 animations = [{
@@ -109,6 +111,14 @@ position = Vector2(26, -38)
 texture = ExtResource("17_dyqo6")
 
 [node name="TimerInteraccion" type="Timer" parent="."]
+
+[node name="WalkSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_00fu7")
+max_distance = 500.0
+
+[node name="GiveWoodSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_qq74j")
+volume_db = 4.0
 
 [connection signal="timeout" from="StopTimer" to="." method="_on_stop_timer_timeout"]
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]

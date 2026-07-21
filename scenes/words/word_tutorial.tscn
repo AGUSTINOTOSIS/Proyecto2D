@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://f2dngv55doay"]
+[gd_scene load_steps=10 format=3 uid="uid://f2dngv55doay"]
 
 [ext_resource type="PackedScene" uid="uid://d24dj7hfq4l7i" path="res://scenes/maps/map_tutorial.tscn" id="1_fwutl"]
 [ext_resource type="PackedScene" uid="uid://4dax11kb47qx" path="res://characters/player.tscn" id="2_2g0ir"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bcnsg71c8xqb7" path="res://Free/controls/s_light.png" id="5_iubg8"]
 [ext_resource type="Texture2D" uid="uid://dx5g1bl8esbkw" path="res://Free/controls/a_key_light.png" id="6_4xvo6"]
 [ext_resource type="Texture2D" uid="uid://boaien3hhwbkj" path="res://Free/controls/d_light.png" id="7_cffa1"]
+[ext_resource type="PackedScene" uid="uid://k5trxgvdpl2u" path="res://scenes/objects/trophy.tscn" id="8_e7uq4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_af8a5"]
 font_size = 22
@@ -141,3 +142,6 @@ z_index = -1
 texture_filter = 1
 position = Vector2(369, 507)
 texture = ExtResource("7_cffa1")
+
+[node name="trophy" parent="." instance=ExtResource("8_e7uq4")]
+position = Vector2(3777, 576)

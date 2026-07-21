@@ -8,7 +8,12 @@ extends CanvasLayer
 @onready var countdown_timer = $countdown
 @onready var audio_stream_player = $emergencia
 
-var time_left : int = 400
+@onready var wall_message_label = $WallMessageLabel
+@onready var wall_message_timer = $WallMessageTimer
+@onready var wood_label = $wood
+@onready var fps_label = $FPSLabel #para los FPS
+
+var time_left : int = 180
 var special_music_playing: bool = false
 var camera_shake_playing: bool = false
 var original_volume: float = 0.0
@@ -40,7 +45,19 @@ func _ready():
 	var bg_music = get_node("../audio_fondo")
 	if bg_music:
 		original_volume = bg_music.volume_db
-		
+	
+	# Verificar si el nivel actual es "word_20"
+	var current_scene = get_tree().current_scene
+	if current_scene and current_scene.name == "word_20":
+		$FuitpointsLabel.visible = false  # Ocultar frutas
+		timer_label.visible = false       # Ocultar tiempo
+		countdown_timer.stop()            # Detener el temporizador
+	
+	if wall_message_label:
+		wall_message_label.text = ""
+		wall_message_label.visible = false
+
+
 func show_freeze_effect(duration: float):
 	if freeze_effect and freeze_timer:
 		freeze_timer.stop()
@@ -89,6 +106,9 @@ func _process(_delta):
 		var health_percent = (float(health) / 100.0) * 100
 		update_damage_effect(health_percent)
 		
+	var fps = Engine.get_frames_per_second()
+	fps_label.text = "FPS: " + str(snapped(fps, 0.1))
+		
 func flash_damage():
 	var tween = create_tween()
 	tween.tween_property(damage_overlay, "color:a", max_alpha, 0.1)
@@ -117,7 +137,7 @@ func start_camera_shake():
 	camera_shake_playing = true
 	var player = get_parent().get_node("player")
 	if player and player.has_node("Camera2D"):
-		player.get_node("Camera2D").shake_screen(20.0, 0.0, true)
+		player.get_node("Camera2D").shake_screen(10.0, 0.0, true) #20
 		
 func stop_camera_shake():
 	camera_shake_playing = false
@@ -162,8 +182,8 @@ func use_wood(amount: int):
 		update_wood_display()
 
 func update_wood_display():
-	if has_node("wood"):
-		$wood.text = "Madera: " + str(wood_count)
+	if wood_label: 
+		wood_label.text = "Madera: " + str(wood_count)
 		
 func show_intensity_effect(effect_name: String):
 	if has_node(effect_name):
@@ -184,19 +204,8 @@ func hide_all_intensity_effects():
 					effect.visible = false
 			).set_delay(1.0)
 		
-#func reduce_intensity_effects(amount: float):
-	#for i in range(1, 6):
-		#var effect_name = "intensidad_" + str(i)
-		#if has_node(effect_name):
-			#var effect = get_node(effect_name)
-			#if effect.modulate.a > 0:
-				#var new_alpha = max(0.0, effect.modulate.a - amount)
-				#effect.modulate.a = new_alpha
-				#if new_alpha <= 0.1:
-					#effect.visible = false
-
-func reduce_intensity_effects_reverse(amount: float):
-	for i in range(5, 0, -1):
+func reduce_intensity_effects(amount: float):
+	for i in range(1, 6):
 		var effect_name = "intensidad_" + str(i)
 		if has_node(effect_name):
 			var effect = get_node(effect_name)
@@ -205,4 +214,34 @@ func reduce_intensity_effects_reverse(amount: float):
 				effect.modulate.a = new_alpha
 				if new_alpha <= 0.1:
 					effect.visible = false
-				break
+					
+func reduce_all_effects(power: float):
+	for i in range(1, 6):
+		var effect_name = "intensidad_" + str(i)
+		if has_node(effect_name):
+			var effect = get_node(effect_name)
+			var new_alpha = max(0.0, effect.modulate.a - power)
+			effect.modulate.a = new_alpha
+			if new_alpha <= 0.1:
+				effect.visible = false
+				
+func show_wall_message(planks_needed: int):
+	if wall_message_label and wall_message_timer:
+		var message: String
+		if planks_needed > 0:
+			message = "Faltan " + str(planks_needed) + " tablones para abrir el camino."
+		else:
+			message = "¡Camino despejado!" # Esto no debería pasar, pero es una seguridad
+	
+		wall_message_label.text = message
+		wall_message_label.visible = true
+		wall_message_timer.start()
+
+func _on_wall_message_timer_timeout() -> void:
+	if wall_message_label:
+		var tween = create_tween()
+		tween.tween_property(wall_message_label, "modulate:a", 0.0, 0.5)
+		tween.tween_callback(func(): 
+			wall_message_label.visible = false
+			wall_message_label.modulate.a = 1.0
+)

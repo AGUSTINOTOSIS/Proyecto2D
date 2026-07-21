@@ -15,7 +15,7 @@ func _ready() -> void:
 	start_button.grab_focus()
 	if Global.first_time_menu:
 		play_intro()
-		Global.first_time_menu = false  # marcar como visto
+		#Global.first_time_menu = false  # marcar como visto
 	else:
 		skip_intro()
 		
@@ -44,6 +44,7 @@ func play_intro():
 
 func skip_intro_immediately():
 	animation_player.stop() # Detener la animación
+	#animation_player.play("skip_intro")
 	music_intro.stop()
 	color_rect.visible = false
 	show_menu()
@@ -79,3 +80,23 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		show_menu()
 		music.play()  # Iniciar música al terminar intro
 		print("Música debería estar sonando ahora")
+
+
+func _on_tutorial_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/words/word_tutorial.tscn")
+
+
+func _on_nivel_5_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/words/word_5.tscn")
+
+
+func _on_nivel_2_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/words/word_2.tscn")
+
+
+func _on_nivel_1_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/words/word_1.tscn")
+
+
+func _on_minigame_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/words/word_20.tscn")

@@ -1,18 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://c6vqoyi1ghhmq"]
 
-[ext_resource type="Script" path="res://scrips/delaymusic.gd" id="1_clhtk"]
+[ext_resource type="Script" uid="uid://bpj7xfixcrmei" path="res://scrips/delaymusic.gd" id="1_5m5fi"]
 [ext_resource type="AudioStream" uid="uid://b5cefpf6lb8hf" path="res://musica/Freezing.mp3" id="2_0s6qh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pnve"]
-size = Vector2(1165, 664)
+size = Vector2(14144, 921)
 
 [node name="delaymusic" type="Area2D" groups=["music_area"]]
 collision_mask = 16
-script = ExtResource("1_clhtk")
-music = ExtResource("2_0s6qh")
+script = ExtResource("1_5m5fi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(572.5, 322)
+position = Vector2(7062, 450.5)
 shape = SubResource("RectangleShape2D_6pnve")
 
 [node name="Timer" type="Timer" parent="."]
@@ -24,7 +23,13 @@ stream = ExtResource("2_0s6qh")
 
 [node name="EffectTimer" type="Timer" parent="."]
 
+[node name="HealthLossTimer" type="Timer" parent="."]
+
+[node name="ColdBurstTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="EffectTimer" to="." method="_on_effect_timer_timeout"]
+[connection signal="timeout" from="HealthLossTimer" to="." method="_on_health_loss_timer_timeout"]
+[connection signal="timeout" from="ColdBurstTimer" to="." method="_on_cold_burst_timer_timeout"]

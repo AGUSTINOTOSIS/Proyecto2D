@@ -23,6 +23,9 @@ func _on_body_entered(body):
 		#Silenciar todas las músicas
 		silence_all_music()
 		
+		#LLAMADA PARA CONGELAR EL SISTEMA DE FRÍO
+		freeze_cold_system()
+		
 		#Detener el shake de la cámara
 		stop_camera_shake(body)
 		
@@ -74,3 +77,9 @@ func stop_camera_shake(player):
 		var camera = player.get_node("Camera2D")
 		if camera.has_method("stop_shake"):
 			camera.stop_shake()
+
+func freeze_cold_system():
+	var music_areas = get_tree().get_nodes_in_group("music_area")
+	for area in music_areas:
+		if area.has_method("freeze_cold_system"):
+			area.freeze_cold_system()

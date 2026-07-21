@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dn8ahuj5dde76"]
+[gd_scene load_steps=13 format=3 uid="uid://dn8ahuj5dde76"]
 
 [ext_resource type="Script" path="res://scenes/words/scripts words/word_2.gd" id="1_rlq20"]
 [ext_resource type="PackedScene" uid="uid://kjnjslwqknqm" path="res://scenes/maps/map_1.tscn" id="1_t6r6j"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://gd470h1fw37l" path="res://scenes/objects/trampoline.tscn" id="6_3undh"]
 [ext_resource type="PackedScene" uid="uid://ddnkca5jfduuw" path="res://scenes/objects/fruit.tscn" id="8_o6vwa"]
 [ext_resource type="PackedScene" uid="uid://dpuslonkvjey7" path="res://scenes/objects/portal.tscn" id="10_xmlyr"]
+[ext_resource type="AudioStream" uid="uid://f4yyc5vq3p73" path="res://musica/happy.mp3" id="12_tdpou"]
 [ext_resource type="PackedScene" uid="uid://k5trxgvdpl2u" path="res://scenes/objects/trophy.tscn" id="15_201up"]
 [ext_resource type="PackedScene" uid="uid://db6pyiq44arhy" path="res://scenes/enemies/enemy_simple.tscn" id="19_ksevb"]
 [ext_resource type="PackedScene" uid="uid://dp2u3wqjflb1d" path="res://scenes/UIs/pause.tscn" id="20_a7gak"]
@@ -322,3 +323,9 @@ position = Vector2(9199, 161)
 position = Vector2(14639, -64)
 
 [node name="map_1" parent="." instance=ExtResource("1_t6r6j")]
+
+[node name="audio_fondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_tdpou")
+volume_db = -10.0
+autoplay = true
+parameters/looping = true

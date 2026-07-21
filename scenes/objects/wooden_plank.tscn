@@ -1,9 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://c5uinn8wbew52"]
+[gd_scene load_steps=22 format=3 uid="uid://c5uinn8wbew52"]
 
-[ext_resource type="Script" path="res://scrips/wooden_plank.gd" id="1_1ps1g"]
+[ext_resource type="Script" uid="uid://ccsetegfb0rea" path="res://scrips/wooden_plank.gd" id="1_1ps1g"]
 [ext_resource type="Texture2D" uid="uid://x1mefeunwrx6" path="res://Free/Terrain/Terrain (16x16).png" id="2_ri6cu"]
 [ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="3_4kfvy"]
 [ext_resource type="Texture2D" uid="uid://b1nkovaibdws5" path="res://Free/loading/07.png" id="4_xi7y5"]
+[ext_resource type="AudioStream" uid="uid://spq07ollixvv" path="res://sonidos/martillando.mp3" id="5_dixf7"]
+[ext_resource type="AudioStream" uid="uid://dfvln1r6u4a1k" path="res://sonidos/madera1.mp3" id="6_vfnsl"]
+[ext_resource type="AudioStream" uid="uid://defo4q4boul3y" path="res://sonidos/madera2.mp3" id="7_p702v"]
+[ext_resource type="AudioStream" uid="uid://7jhcyi5iagnm" path="res://sonidos/madera3.mp3" id="8_hyxjc"]
+[ext_resource type="AudioStream" uid="uid://8ng2li2y54ug" path="res://sonidos/madera4.mp3" id="9_4eemb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbhkb"]
 size = Vector2(78.5, 2)
@@ -12,7 +17,7 @@ size = Vector2(78.5, 2)
 size = Vector2(78.5, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0tuod"]
-size = Vector2(75, 25.5)
+size = Vector2(83.5, 25.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_awh8e"]
 atlas = ExtResource("4_xi7y5")
@@ -106,7 +111,7 @@ debug_color = Color(0.729693, 0.342825, 0.826898, 0.42)
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(15.5, 0.25)
+position = Vector2(10.75, 0.25)
 shape = SubResource("RectangleShape2D_0tuod")
 
 [node name="EPrompt" type="Sprite2D" parent="."]
@@ -123,6 +128,21 @@ animation = &"progress"
 
 [node name="ConstructionTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="BuildSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dixf7")
+
+[node name="CompleteSoundPlayer1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_vfnsl")
+
+[node name="CompleteSoundPlayer2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_p702v")
+
+[node name="CompleteSoundPlayer3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_hyxjc")
+
+[node name="CompleteSoundPlayer4" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_4eemb")
 
 [connection signal="body_entered" from="BottomArea" to="." method="_on_bottom_area_body_entered"]
 [connection signal="body_exited" from="BottomArea" to="." method="_on_bottom_area_body_exited"]

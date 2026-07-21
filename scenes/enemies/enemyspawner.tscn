@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b86n1g2gr0r2t"]
+
+[ext_resource type="Script" uid="uid://6hnh65vih3an" path="res://scrips/enemyspawner.gd" id="1_o36dd"]
+[ext_resource type="PackedScene" uid="uid://db6pyiq44arhy" path="res://scenes/enemies/enemy_simple.tscn" id="2_dq2sr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oehic"]
+
+[node name="enemyspawner" type="Node2D" groups=["spawners"]]
+script = ExtResource("1_o36dd")
+enemy_scene = ExtResource("2_dq2sr")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="SpawnArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnArea"]
+shape = SubResource("RectangleShape2D_oehic")
+debug_color = Color(0.900249, 0.135496, 0.688278, 0.42)
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

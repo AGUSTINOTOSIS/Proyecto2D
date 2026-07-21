@@ -1,9 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://ybabgmy6nlyl"]
+[gd_scene load_steps=18 format=3 uid="uid://ybabgmy6nlyl"]
 
-[ext_resource type="Script" path="res://scrips/door.gd" id="1_ag5p6"]
+[ext_resource type="Script" uid="uid://cwsmtw3hju7eh" path="res://scrips/door.gd" id="1_ag5p6"]
 [ext_resource type="Texture2D" uid="uid://x1mefeunwrx6" path="res://Free/Terrain/Terrain (16x16).png" id="2_d17en"]
 [ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="3_u5x0r"]
 [ext_resource type="Texture2D" uid="uid://b1nkovaibdws5" path="res://Free/loading/07.png" id="4_djvid"]
+[ext_resource type="AudioStream" uid="uid://spq07ollixvv" path="res://sonidos/martillando.mp3" id="5_n7nj0"]
+[ext_resource type="AudioStream" uid="uid://s5ouga22pkqt" path="res://sonidos/puerta_construida.mp3" id="6_6nwij"]
+[ext_resource type="AudioStream" uid="uid://boo84d7uon827" path="res://sonidos/puerta_rota.mp3" id="7_twvsm"]
+[ext_resource type="AudioStream" uid="uid://dppuaj2fhrm0n" path="res://sonidos/golpe_puerta.mp3" id="8_b7o8r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lgtvg"]
 size = Vector2(7, 46)
@@ -92,6 +96,7 @@ animation = &"progress"
 
 [node name="ConstructionTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 
 [node name="DamageTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -104,6 +109,18 @@ collision_layer = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
 shape = SubResource("RectangleShape2D_110qk")
 debug_color = Color(0.268576, 0.596029, 0.596574, 0.42)
+
+[node name="BuildProgressSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_n7nj0")
+
+[node name="BuildCompleteSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_6nwij")
+
+[node name="DestroySoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_twvsm")
+
+[node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_b7o8r")
 
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]

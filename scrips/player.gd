@@ -26,6 +26,7 @@ var is_frozen: bool = false
 var freeze_timer: float = 0.0
 var original_speed: float = SPEED
 var freeze_speed: float = SPEED * 0.5
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -35,7 +36,7 @@ func _ready():
 	
 	modulate = Color(1, 1, 1, 1)
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if is_frozen:
 		freeze_timer -= delta
 		if freeze_timer <= 0:
@@ -226,4 +227,14 @@ func apply_fade_effect(target_alpha: float, duration: float = 3.0):
 func reset_appearance():
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 1.0)
-	
+
+func apply_speed_reduction(walk_reduction: float):
+	# Reducir la velocidad de caminata
+	SPEED = original_speed * walk_reduction
+
+func reset_speed():
+	# Restablecer la velocidad de caminata
+	SPEED = original_speed
+
+func bounce():
+	velocity.y = min(velocity.y, JUMP_VELOCITY * 0.5)

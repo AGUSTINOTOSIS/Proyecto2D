@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://be6ylptlg8la0"]
+
+[ext_resource type="Script" uid="uid://ckshrpwp1wctf" path="res://scrips/ColdWaterArea.gd" id="1_j4t7x"]
+[ext_resource type="Texture2D" uid="uid://cv4agpup1nt3r" path="res://Treasure Hunters/Merchant Ship/Sprites/Water/Water/Bottom/1.png" id="2_4c2n3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yy8bp"]
+size = Vector2(1922, 139)
+
+[node name="frozenwater" type="Area2D"]
+modulate = Color(1, 1, 1, 0.784314)
+z_index = 2
+scale = Vector2(2, 2)
+collision_mask = 17
+script = ExtResource("1_j4t7x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(913, 53.5)
+shape = SubResource("RectangleShape2D_yy8bp")
+debug_color = Color(0.446182, 0.597245, 1.92523e-07, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(912.9997, 53.5)
+scale = Vector2(20.02084, 4.34375)
+texture = ExtResource("2_4c2n3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

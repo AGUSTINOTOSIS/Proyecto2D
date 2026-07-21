@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dns7oobgckfyc"]
+[gd_scene load_steps=22 format=4 uid="uid://dns7oobgckfyc"]
 
 [ext_resource type="PackedScene" uid="uid://c00cqtlmn8ve5" path="res://scenes/maps/maps_minigames/frozen_death.tscn" id="1_u7dsu"]
 [ext_resource type="PackedScene" uid="uid://4dax11kb47qx" path="res://characters/player.tscn" id="2_jodcj"]
@@ -9,9 +9,16 @@
 [ext_resource type="Texture2D" uid="uid://bp16atpgtnll4" path="res://Free/Terrain/SnowTilemap .png" id="7_uh1k5"]
 [ext_resource type="PackedScene" uid="uid://c5uinn8wbew52" path="res://scenes/objects/wooden_plank.tscn" id="8_bbiq5"]
 [ext_resource type="PackedScene" uid="uid://ybabgmy6nlyl" path="res://scenes/objects/door.tscn" id="9_7vqcx"]
-[ext_resource type="PackedScene" uid="uid://db6pyiq44arhy" path="res://scenes/enemies/enemy_simple.tscn" id="10_qv06h"]
 [ext_resource type="PackedScene" uid="uid://c6vqoyi1ghhmq" path="res://scenes/objects/delaymusic.tscn" id="11_wqex6"]
 [ext_resource type="PackedScene" uid="uid://bd3xolrq38g1p" path="res://scenes/objects/campfire.tscn" id="12_epah3"]
+[ext_resource type="AudioStream" uid="uid://jo6phyqiydrq" path="res://musica/nieve_music.mp3" id="13_yghhs"]
+[ext_resource type="Texture2D" uid="uid://mbmm32iagc6o" path="res://Free/Terrain/SnowParallaxBackground.png" id="14_qkdnd"]
+[ext_resource type="PackedScene" uid="uid://be6ylptlg8la0" path="res://scenes/objects/frozenwater.tscn" id="15_ke5kh"]
+[ext_resource type="PackedScene" uid="uid://b86n1g2gr0r2t" path="res://scenes/enemies/enemyspawner.tscn" id="16_1g4g5"]
+[ext_resource type="PackedScene" uid="uid://k5trxgvdpl2u" path="res://scenes/objects/trophy.tscn" id="16_qihbh"]
+[ext_resource type="PackedScene" uid="uid://cnecd3d1jtd5w" path="res://scenes/objects/muro.tscn" id="17_t1p5w"]
+[ext_resource type="PackedScene" uid="uid://bbv3lspytkm24" path="res://scenes/objects/frozenwater_x_4.tscn" id="18_wudr8"]
+[ext_resource type="PackedScene" uid="uid://btarfqmb6potf" path="res://scenes/objects/frozenwater_x_8.tscn" id="19_egsnb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fheef"]
 texture = ExtResource("7_uh1k5")
@@ -120,6 +127,56 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fheef")
 
 [node name="word_20" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.04, 1)
+motion_mirroring = Vector2(1100, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture_filter = 1
+position = Vector2(0, -406)
+scale = Vector2(3.61129, 6.36174)
+texture = ExtResource("14_qkdnd")
+centered = false
+region_enabled = true
+region_rect = Rect2(0.0712452, 80.0456, 319.99, 119.944)
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.08, 1)
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture_filter = 1
+position = Vector2(0, -195)
+scale = Vector2(3.59687, 6.24603)
+texture = ExtResource("14_qkdnd")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 200.092, 320.362, 63.6813)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+scale = Vector2(4.60625, 3)
+texture = ExtResource("14_qkdnd")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 320.362, 80.4473)
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture_filter = 1
+scale = Vector2(3.6, 4.71429)
+texture = ExtResource("14_qkdnd")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 263.92, 320.362, 63.2441)
 
 [node name="UI" parent="." instance=ExtResource("5_theh6")]
 
@@ -408,9 +465,6 @@ position = Vector2(12598, 8)
 z_index = 1
 position = Vector2(16, -1)
 
-[node name="enemy_simple" parent="." instance=ExtResource("10_qv06h")]
-position = Vector2(133, -57)
-
 [node name="frozen_death" parent="." instance=ExtResource("1_u7dsu")]
 
 [node name="delaymusic" parent="." instance=ExtResource("11_wqex6")]
@@ -418,3 +472,54 @@ position = Vector2(-560, -652)
 
 [node name="campfire" parent="." instance=ExtResource("12_epah3")]
 position = Vector2(278, -46)
+
+[node name="audio_fondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_yghhs")
+volume_db = -10.0
+autoplay = true
+parameters/looping = true
+
+[node name="frozenwater" parent="." instance=ExtResource("15_ke5kh")]
+z_index = 3
+position = Vector2(3708, 68)
+
+[node name="door2" parent="." instance=ExtResource("9_7vqcx")]
+position = Vector2(417, -1)
+
+[node name="enemyspawner" parent="." instance=ExtResource("16_1g4g5")]
+z_index = 3
+position = Vector2(880, 76)
+spawn_interval = 30.0
+
+[node name="enemyspawner2" parent="." instance=ExtResource("16_1g4g5")]
+z_index = 3
+position = Vector2(1262, 73)
+
+[node name="enemyspawner3" parent="." instance=ExtResource("16_1g4g5")]
+z_index = 3
+position = Vector2(1929, 70)
+spawn_interval = 7.0
+
+[node name="enemyspawner4" parent="." instance=ExtResource("16_1g4g5")]
+z_index = 3
+position = Vector2(2380, 63)
+spawn_interval = 11.0
+
+[node name="enemyspawner5" parent="." instance=ExtResource("16_1g4g5")]
+z_index = 3
+position = Vector2(1586, 66)
+spawn_interval = 20.0
+
+[node name="trophy" parent="." instance=ExtResource("16_qihbh")]
+position = Vector2(12926, -32)
+
+[node name="muro" parent="." instance=ExtResource("17_t1p5w")]
+position = Vector2(12811, -259)
+
+[node name="frozenwater_x4" parent="." instance=ExtResource("18_wudr8")]
+z_index = 3
+position = Vector2(7552, 68)
+
+[node name="frozenwater_x8" parent="." instance=ExtResource("19_egsnb")]
+z_index = 3
+position = Vector2(10144, 36)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://caskqolytu8vq"]
+[gd_scene load_steps=10 format=3 uid="uid://caskqolytu8vq"]
 
 [ext_resource type="PackedScene" uid="uid://cie0xx3w2ya8x" path="res://scenes/maps/map_2.tscn" id="1_p6eow"]
 [ext_resource type="PackedScene" uid="uid://bhvdrxog34jso" path="res://scenes/UIs/ui.tscn" id="1_plgii"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bh6kq7weerqia" path="res://scenes/fondos/fondo_1.tscn" id="3_tutuh"]
 [ext_resource type="PackedScene" uid="uid://gd470h1fw37l" path="res://scenes/objects/trampoline.tscn" id="3_u8m2c"]
 [ext_resource type="PackedScene" uid="uid://dp2u3wqjflb1d" path="res://scenes/UIs/pause.tscn" id="5_42yyo"]
+[ext_resource type="AudioStream" uid="uid://f4yyc5vq3p73" path="res://musica/happy.mp3" id="8_6ad7r"]
+[ext_resource type="PackedScene" uid="uid://k5trxgvdpl2u" path="res://scenes/objects/trophy.tscn" id="9_n7mmc"]
 
 [node name="word_2" type="Node2D"]
 
@@ -33,3 +35,12 @@ position = Vector2(6348, 486)
 position = Vector2(7693, 197)
 
 [node name="map_2" parent="." instance=ExtResource("1_p6eow")]
+
+[node name="audio_fondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_6ad7r")
+volume_db = -10.0
+autoplay = true
+parameters/looping = true
+
+[node name="trophy" parent="." instance=ExtResource("9_n7mmc")]
+position = Vector2(14700, -63)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://k5trxgvdpl2u"]
 
-[ext_resource type="Script" path="res://scrips/trophy.gd" id="1_hbqgl"]
+[ext_resource type="Script" uid="uid://dd7jidyqxwsnc" path="res://scrips/trophy.gd" id="1_hbqgl"]
 [ext_resource type="PackedScene" uid="uid://7l65oknrit4l" path="res://scenes/UIs/victory_screen.tscn" id="2_lar75"]
 [ext_resource type="Texture2D" uid="uid://bw1ere5nqkj4e" path="res://Free/Items/Checkpoints/End/End (Pressed) (64x64).png" id="2_tegkc"]
 [ext_resource type="AudioStream" uid="uid://cvy45ivhffhc4" path="res://musica/win.mp3" id="3_bjekc"]

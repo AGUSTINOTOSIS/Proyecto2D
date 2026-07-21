@@ -9,6 +9,10 @@ extends StaticBody2D
 @onready var damage_timer = $DamageTimer #timer para daño
 @onready var shake_timer = $ShakeTimer #para efecto de temblor
 @onready var enemy_detection_area = $EnemyDetectionArea
+@onready var build_progress_sound_player = $BuildProgressSoundPlayer
+@onready var build_complete_sound_player = $BuildCompleteSoundPlayer
+@onready var destroy_sound_player = $DestroySoundPlayer
+@onready var hit_sound_player = $HitSoundPlayer
 
 var player_near: bool = false
 var construction_progress: int = 0
@@ -21,6 +25,10 @@ var enemies_colliding: Array = [] #lista de enemigos colisionando
 var is_shaking: bool = false
 var original_position: Vector2
 
+var auto_build_timer: float = 0.0
+var auto_build_interval: float = 0.1 # Intervalo de construcción automática
+var is_auto_building: bool = false
+
 func _ready() -> void:
 	main_sprite.visible = false
 	e_prompt.visible = false
@@ -29,9 +37,26 @@ func _ready() -> void:
 	collision_shape.set_deferred("disabled", true)
 	enemy_detection_area.set_deferred("monitoring", false)
 
-func _process(_delta: float) -> void:
-	if player_near and not is_constructed and Input.is_action_just_pressed("interact_radio"):
-		try_advance_construction()
+func _process(delta: float) -> void:
+	if player_near and not is_constructed:
+		if Input.is_action_just_pressed("interact_radio"):
+			try_advance_construction()
+			auto_build_timer = 0.0
+			is_auto_building = false
+			
+		elif Input.is_action_pressed("interact_radio"):
+			is_auto_building = true
+			auto_build_timer += delta
+			if auto_build_timer >= auto_build_interval:
+				auto_build_timer = 0.0
+				try_advance_construction()
+		
+		elif Input.is_action_just_released("interact_radio") or not Input.is_action_pressed("interact_radio"):
+			auto_build_timer = 0.0
+			is_auto_building = false
+			if construction_progress > 0:
+				if build_progress_sound_player:
+					build_progress_sound_player.stop()
 		
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and not is_constructed:
@@ -42,7 +67,14 @@ func _on_interaction_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_near = false
 		e_prompt.visible = false
-		construction_timer.stop()
+		# Resetear estado visual/automático si no está completa
+		if not is_constructed:
+			construction_timer.stop()
+			progress_sprite.visible = false
+			auto_build_timer = 0.0
+			is_auto_building = false
+			if build_progress_sound_player:
+				build_progress_sound_player.stop()
 		
 func try_advance_construction():
 	var ui = get_tree().get_first_node_in_group("ui")
@@ -50,15 +82,19 @@ func try_advance_construction():
 		if ui.has_wood(wood_required_per_press):
 			ui.use_wood(wood_required_per_press)
 			advance_construction()
+			construction_timer.start()
 		else:
 			print("No tienes suficiente madera")
 
 func advance_construction():
 	construction_progress += 1
-	construction_timer.start()
 	
 	e_prompt.visible = false
 	progress_sprite.visible = true
+	
+	# Reproducir sonido de progreso de construcción
+	if build_progress_sound_player:
+		build_progress_sound_player.play()
 	
 	if progress_sprite:
 		progress_sprite.frame = construction_progress - 1
@@ -80,9 +116,12 @@ func complete_construction():
 	shake_timer.wait_time = 0.1
 	enemy_detection_area.set_deferred("monitoring", true)
 	
+	# Reproducir sonido de construcción completada
+	if build_complete_sound_player:
+		build_complete_sound_player.play()
+	
 func _on_construction_timer_timeout() -> void:
 	if not is_constructed:
-		construction_progress = 0
 		progress_sprite.visible = false
 		
 		if player_near:
@@ -92,6 +131,9 @@ func take_damage(amount: int = 1):
 	if not is_constructed:
 		return
 	health -= amount
+	# Reproducir sonido de golpe
+	if hit_sound_player:
+		hit_sound_player.play()
 	start_shake()
 	if health <= 0:
 		destroy_door()
@@ -118,6 +160,10 @@ func destroy_door():
 	progress_sprite.visible = false
 	e_prompt.visible = false
 	
+	# Reproducir sonido de destrucción
+	if destroy_sound_player:
+		destroy_sound_player.play()
+	
 	collision_shape.set_deferred("disabled", true)
 	enemy_detection_area.set_deferred("monitoring", false)
 	
@@ -127,6 +173,7 @@ func destroy_door():
 			if push_direction == 0:
 				push_direction = 1 if randf() > 0.5 else -1
 			enemy.position.x += 10 * push_direction
+			enemy.handle_door_destroyed(self)
 	#reinicia la vida
 	health = max_health
 	damage_timer.stop()
@@ -140,6 +187,7 @@ func _on_enemy_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and is_constructed:
 		if not enemies_colliding.has(body):
 			enemies_colliding.append(body)
+			body.last_wall_collision = self
 			if enemies_colliding.size() == 1:
 				damage_timer.start()
 				

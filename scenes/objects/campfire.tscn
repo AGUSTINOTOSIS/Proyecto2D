@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bd3xolrq38g1p"]
+[gd_scene load_steps=29 format=3 uid="uid://bd3xolrq38g1p"]
 
-[ext_resource type="Script" path="res://scrips/campfire.gd" id="1_uvcb6"]
+[ext_resource type="Script" uid="uid://dx3rnbpkrq6f" path="res://scrips/campfire.gd" id="1_uvcb6"]
 [ext_resource type="Texture2D" uid="uid://ddioxdrqtfjy2" path="res://Free/campfire/CampFire1.png" id="2_uwmci"]
 [ext_resource type="Texture2D" uid="uid://bjhnv45wrsrvt" path="res://Free/campfire/CampFire2.png" id="3_sgn7s"]
 [ext_resource type="Texture2D" uid="uid://fnkpuwyfpk57" path="res://Free/campfire/CampFire3.png" id="4_au1pj"]
@@ -9,9 +9,16 @@
 [ext_resource type="Texture2D" uid="uid://ds4u7wiludj8h" path="res://Free/campfire/CampFire7.png" id="7_jyg10"]
 [ext_resource type="Texture2D" uid="uid://di8htpyb482gu" path="res://Free/campfire/CampFire6.png" id="8_bv54j"]
 [ext_resource type="Texture2D" uid="uid://df5ell3rnn543" path="res://Free/campfire/CampFirenothing.png" id="9_xdcsh"]
+[ext_resource type="Texture2D" uid="uid://cl0ub3b8p2kvg" path="res://Free/controls/e_light.png" id="10_nqrow"]
+[ext_resource type="Texture2D" uid="uid://b1nkovaibdws5" path="res://Free/loading/07.png" id="11_mu5vi"]
+[ext_resource type="AudioStream" uid="uid://spq07ollixvv" path="res://sonidos/martillando.mp3" id="12_rpv0x"]
+[ext_resource type="AudioStream" uid="uid://b2lw21lp2c01l" path="res://sonidos/fogata_construida.mp3" id="13_l8ypf"]
+[ext_resource type="AudioStream" uid="uid://bqw876ndlw2wb" path="res://sonidos/fogata_apagada.mp3" id="14_dmo3f"]
+[ext_resource type="AudioStream" uid="uid://b2wynsgcagiyq" path="res://sonidos/fuego.mp3" id="15_4bshs"]
+[ext_resource type="AudioStream" uid="uid://cnd8vlesd7qya" path="res://sonidos/fuego_listo.mp3" id="16_lryot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_snyeb"]
-size = Vector2(307, 210)
+size = Vector2(430, 210)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xb60l"]
 animations = [{
@@ -50,12 +57,81 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_homjy"]
+size = Vector2(94, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n84xe"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eovb2"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roo6a"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfqqs"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scakg"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67x8f"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_el7sl"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbtr0"]
+atlas = ExtResource("11_mu5vi")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_41ds3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n84xe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eovb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roo6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfqqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scakg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67x8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_el7sl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbtr0")
+}],
+"loop": false,
+"name": &"progress",
+"speed": 0.0
+}]
+
 [node name="campfire" type="Area2D" groups=["bonfire"]]
+collision_mask = 16
 script = ExtResource("1_uvcb6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -62)
+position = Vector2(-61, -62)
 shape = SubResource("RectangleShape2D_snyeb")
+debug_color = Color(0.692403, 0.492944, 0.168868, 0.42)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -63,8 +139,56 @@ sprite_frames = SubResource("SpriteFrames_xb60l")
 animation = &"fire"
 frame_progress = 0.710409
 
-[node name="ReductionTimer" type="Timer" parent="."]
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-1, 8)
+shape = SubResource("RectangleShape2D_homjy")
+debug_color = Color(0.681819, 0.422969, 0.712411, 0.42)
+
+[node name="EPrompt" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-62, -43)
+texture = ExtResource("10_nqrow")
+
+[node name="ProgressSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-62, -43)
+scale = Vector2(1.75, 2)
+sprite_frames = SubResource("SpriteFrames_41ds3")
+animation = &"progress"
+
+[node name="ConstructionTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="DurabilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BuildSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_rpv0x")
+
+[node name="CompleteSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_l8ypf")
+
+[node name="ExtinguishSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_dmo3f")
+
+[node name="FireSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_4bshs")
+max_distance = 300.0
+parameters/looping = true
+
+[node name="Fire_ready" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_lryot")
+
+[node name="WarmingTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
-[connection signal="timeout" from="ReductionTimer" to="." method="_on_reduction_timer_timeout"]
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
+[connection signal="timeout" from="ConstructionTimer" to="." method="_on_construction_timer_timeout"]
+[connection signal="timeout" from="DurabilityTimer" to="." method="_on_durability_timer_timeout"]
+[connection signal="timeout" from="WarmingTimer" to="." method="_on_warming_timer_timeout"]
